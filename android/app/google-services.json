@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "442717194452",
+    "project_id": "hrchain",
+    "storage_bucket": "hrchain.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442717194452:android:f30abc8ec8b317ab5d5341",
+        "android_client_info": {
+          "package_name": "com.completechain.hrchain"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0-vTj5E4bAR6_L-4UrQBCQv1IAsl56VQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
