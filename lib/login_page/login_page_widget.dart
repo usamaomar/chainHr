@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/free_dialog/free_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'login_page_model.dart';
 export 'login_page_model.dart';
 
@@ -45,6 +46,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -335,7 +338,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   GoRouter.of(context).prepareAuthEvent();
                                   await authManager.signIn(
                                     authenticationToken:
-                                        currentAuthenticationToken,
+                                        FFAppState().UserModelState.token,
+                                    userData: FFAppState().UserModelState,
                                   );
 
                                   setState(() {});
