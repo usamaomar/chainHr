@@ -1,3 +1,4 @@
+import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -300,7 +301,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       setState(() {});
                                     }
 
-                                    context.pushNamed('HomePage');
+                                    context.pushNamedAuth(
+                                        'HomePage', context.mounted);
                                   } else {
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
@@ -329,6 +331,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       },
                                     ).then((value) => safeSetState(() {}));
                                   }
+
+                                  GoRouter.of(context).prepareAuthEvent();
+                                  await authManager.signIn(
+                                    authenticationToken:
+                                        currentAuthenticationToken,
+                                  );
 
                                   setState(() {});
                                 },
