@@ -138,6 +138,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Clock In',
       'ar': 'تدخل',
     },
+    'pqe8v9eq': {
+      'en': 'Tap to',
+      'ar': '',
+    },
+    'a3dk4bxp': {
+      'en': 'Clock In',
+      'ar': '',
+    },
     'auz6u03z': {
       'en': '9 : 41 AM',
       'ar': '9 : 41 AM',

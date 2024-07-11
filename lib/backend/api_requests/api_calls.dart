@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -26,6 +27,11 @@ class HrGroupGroup {
     'Accept': 'application/json',
   };
   static LoginApiCallCall loginApiCallCall = LoginApiCallCall();
+  static CreatePunchApiApiCallCall createPunchApiApiCallCall =
+      CreatePunchApiApiCallCall();
+  static DashboardApiCallCall dashboardApiCallCall = DashboardApiCallCall();
+  static EmploymentInfoApiCallCall employmentInfoApiCallCall =
+      EmploymentInfoApiCallCall();
 
   static final interceptors = [
     ChainInterceptor(),
@@ -53,7 +59,8 @@ class LoginApiCallCall {
   "email": "$email",
   "password": "$password",
   "lang": "$lang",
-  "fcm": "$fcm"
+  "fcm": "$fcm",
+  "device_name": "$platform"
 }''';
     return FFApiInterceptor.makeApiCall(
       ApiCallOptions(
@@ -70,6 +77,132 @@ class LoginApiCallCall {
         params: const {},
         body: ffApiRequestBody,
         bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      HrGroupGroup.interceptors,
+    );
+  }
+}
+
+class CreatePunchApiApiCallCall {
+  Future<ApiCallResponse> call({
+    String? lat = '',
+    String? lng = '',
+    String? shiftId = '',
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "lat": "$lat",
+  "lng": "$lng",
+  "shift_id": "$shiftId"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'CreatePunchApiApiCall',
+        apiUrl: '$baseUrl/api/employee/create/punch',
+        callType: ApiCallType.POST,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '$platform',
+          'Build-Number': '$buildNumber',
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      HrGroupGroup.interceptors,
+    );
+  }
+}
+
+class DashboardApiCallCall {
+  Future<ApiCallResponse> call({
+    String? email = '',
+    String? password = '',
+    String? lang = '',
+    String? fcm = '',
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'DashboardApiCall',
+        apiUrl: '$baseUrl/api/employee/dashboard',
+        callType: ApiCallType.GET,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '$platform',
+          'Build-Number': '$buildNumber',
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      HrGroupGroup.interceptors,
+    );
+  }
+}
+
+class EmploymentInfoApiCallCall {
+  Future<ApiCallResponse> call({
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'EmploymentInfoApiCall',
+        apiUrl: '$baseUrl/api/employee/employmentInfo',
+        callType: ApiCallType.GET,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '$platform',
+          'Build-Number': '$buildNumber',
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+        },
+        params: const {},
         returnBody: true,
         encodeBodyUtf8: false,
         decodeUtf8: false,

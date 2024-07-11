@@ -18,6 +18,8 @@ class LoginPageModel extends FlutterFlowModel<LoginPageWidget> {
   String? Function(BuildContext, String?)? textController2Validator;
   // Stores action output result for [Backend Call - API (LoginApiCall)] action in Button widget.
   ApiCallResponse? apiResult5ki;
+  // Stores action output result for [Backend Call - API (EmploymentInfoApiCall)] action in Button widget.
+  ApiCallResponse? employmentInfoCall;
 
   @override
   void initState(BuildContext context) {

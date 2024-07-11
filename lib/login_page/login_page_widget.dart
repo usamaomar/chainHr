@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -275,6 +276,30 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
                                   if ((_model.apiResult5ki?.succeeded ??
                                       true)) {
+                                    FFAppState().UserModelState =
+                                        UserModelStruct.maybeFromMap(
+                                            getJsonField(
+                                      (_model.apiResult5ki?.jsonBody ?? ''),
+                                      r'''$''',
+                                    ))!;
+                                    setState(() {});
+                                    _model.employmentInfoCall =
+                                        await HrGroupGroup
+                                            .employmentInfoApiCallCall
+                                            .call();
+
+                                    if ((_model.employmentInfoCall?.succeeded ??
+                                        true)) {
+                                      FFAppState().EmploymentInfoState =
+                                          EmploymentInfoModelStruct
+                                              .maybeFromMap(getJsonField(
+                                        (_model.employmentInfoCall?.jsonBody ??
+                                            ''),
+                                        r'''$''',
+                                      ))!;
+                                      setState(() {});
+                                    }
+
                                     context.pushNamed('HomePage');
                                   } else {
                                     await showModalBottomSheet(
