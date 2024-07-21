@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_final_fields
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallOptions, ApiCallResponse;
@@ -31,6 +34,7 @@ abstract class FFApiInterceptor {
   /// the API from scratch using the original [ApiCallOptions] passed in.
   Future<ApiCallResponse> onResponse({
     required ApiCallResponse response,
+    required BuildContext context,
     required Future<ApiCallResponse> Function() retryFn,
   }) async =>
       response;
@@ -38,6 +42,7 @@ abstract class FFApiInterceptor {
   static Future<ApiCallResponse> makeApiCall(
     ApiCallOptions options,
     List<FFApiInterceptor> interceptors,
+    BuildContext context,
   ) async {
     final initialOptions = options.clone();
     // Update the options for each interceptor.
@@ -58,10 +63,24 @@ abstract class FFApiInterceptor {
     // Update the response for each interceptor, applied in reverse order.
     for (final interceptor in interceptors.reversed) {
       response = await interceptor.onResponse(
+        context : context,
         response: response,
-        retryFn: () => makeApiCall(initialOptions, interceptors),
+        retryFn: () => makeApiCall(initialOptions, interceptors,context),
       );
     }
+
+    if(kDebugMode){
+      print('-----------------------------');
+      print('url : ${options.apiUrl}');
+      print('headers : ${options.headers}');
+      print('headers : ${options.callType}');
+      print('params : ${options.params}');
+      print('options body : ${options.body}');
+      print('body : ${response.bodyText}');
+      print('statusCode : ${response.statusCode}');
+      print('-----------------------------');
+    }
+
     return response;
   }
 }

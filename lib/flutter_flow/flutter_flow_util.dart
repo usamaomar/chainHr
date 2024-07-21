@@ -13,8 +13,11 @@ import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 
+import '../app_state.dart';
+import '../component/error_bottom_sheet_component/error_bottom_sheet_component_widget.dart';
 import '../main.dart';
 
+import 'flutter_flow_theme.dart';
 import 'lat_lng.dart';
 
 export 'lat_lng.dart';
@@ -60,6 +63,47 @@ Future launchURL(String url) async {
   } catch (e) {
     throw 'Could not launch $uri: $e';
   }
+}
+void error(BuildContext context, FocusNode unfocusNode, String? error) async {
+  await Future.delayed(const Duration(milliseconds: 500));
+  await showModalBottomSheet(
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+    ),
+    backgroundColor: FlutterFlowTheme.of(context).colorffffff,
+    isDismissible: true,
+    enableDrag: false,
+    useSafeArea: true,
+    context: context,
+    builder: (context) {
+      return GestureDetector(
+        onTap: () => unfocusNode.canRequestFocus
+            ? FocusScope.of(context).requestFocus(unfocusNode)
+            : FocusScope.of(context).unfocus(),
+        child: Padding(
+          padding: MediaQuery.viewInsetsOf(context),
+          child: ErrorBottomSheetComponentWidget(
+            error: error,
+          ),
+        ),
+      );
+    },
+  );
+}
+
+
+DateTime combineDateAndTime(DateTime? date, DateTime? time) {
+  return DateTime(
+    date?.year ?? 0,
+    date?.month ?? 0,
+    date?.day ?? 0,
+    time?.hour ?? 0,
+    time?.minute ?? 0,
+    time?.second ?? 0,
+    time?.millisecond ?? 0,
+    time?.microsecond ?? 0,
+  );
 }
 
 Color colorFromCssString(String color, {Color? defaultColor}) {
@@ -144,6 +188,41 @@ String formatNumber(
   }
 
   return formattedValue;
+}
+
+extension HeaderExtensions on Map<String, dynamic> {
+  Map<String, dynamic> addUserHeaders() {
+    this['Platform'] = Platform.isAndroid ? "Android" : "iOS";
+    this['Authorization'] = 'Bearer ${FFAppState().UserModelState.token}';
+    this['Build-Number'] = '0.1';
+    return this;
+  }
+}
+
+extension PlatformExtension on String {
+  String get platformSpecific {
+    return Platform.isAndroid ? 'android' : 'ios';
+  }
+}
+
+extension DateTimeExtensions on DateTime {
+  DateTime addOneMinute() {
+    return add(const Duration(minutes: 1));
+  }
+}
+
+double minutesToDays(int minutes) {
+  return minutes / (24 * 60);
+}
+
+// Method to convert minutes to hours
+double minutesToHours(int minutes) {
+  return minutes / 60;
+}
+
+// Method to convert minutes (this one just returns the input for consistency)
+int minutesToMinutes(int minutes) {
+  return minutes;
 }
 
 DateTime get getCurrentTimestamp => DateTime.now();

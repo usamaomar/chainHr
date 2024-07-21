@@ -2,6 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../pages/apply_leave_page/apply_leave_page_widget.dart';
+import '../../pages/apply_vacation_page/apply_vacation_page_widget.dart';
+import '../../pages/home_page/home_page_widget.dart';
+import '../../pages/leave_request_page/leave_request_page_widget.dart';
+import '../../pages/my_profile_page/my_profile_page_widget.dart';
+import '../../pages/notifications_page/notifications_page_widget.dart';
+import '../../pages/select_page/select_page_widget.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 
@@ -21,6 +28,7 @@ class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
 
   static AppStateNotifier? _instance;
+
   static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
 
   HrChainAuthUser? initialUser;
@@ -36,13 +44,19 @@ class AppStateNotifier extends ChangeNotifier {
   bool notifyOnAuthChange = true;
 
   bool get loading => user == null || showSplashImage;
+
   bool get loggedIn => user?.loggedIn ?? false;
+
   bool get initiallyLoggedIn => initialUser?.loggedIn ?? false;
+
   bool get shouldRedirect => loggedIn && _redirectLocation != null;
 
   String getRedirectLocation() => _redirectLocation!;
+
   bool hasRedirect() => _redirectLocation != null;
+
   void setRedirectLocationIfUnset(String loc) => _redirectLocation ??= loc;
+
   void clearRedirectLocation() => _redirectLocation = null;
 
   /// Mark as not needing to notify on a sign in / out when we intend
@@ -74,14 +88,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const LoginPageWidget(),
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? const NavBarPage()
+          : const LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const LoginPageWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? const NavBarPage()
+              : const LoginPageWidget(),
         ),
         FFRoute(
           name: 'LoginPage',
@@ -112,7 +128,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ApplyLeavePage',
           path: '/applyLeavePage',
-          builder: (context, params) => const ApplyLeavePageWidget(),
+          builder: (context, params) => ApplyLeavePageWidget(
+              dashboardModelStruct: DashboardModelStruct.maybeFromMap(
+                  params.getParam('leaveModel', ParamType.JSON))),
         ),
         FFRoute(
           name: 'ApplyVacationPage',
@@ -123,6 +141,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'LeaveRequestPage',
           path: '/leaveRequestPage',
           builder: (context, params) => const LeaveRequestPageWidget(),
+        ),
+        FFRoute(
+          name: 'SelectPageWidget',
+          path: '/SelectPageWidget',
+          builder: (context, params) => const SelectPageWidget(),
         ),
         FFRoute(
           name: 'VacationRequestPage',
@@ -193,13 +216,17 @@ extension NavigationExtensions on BuildContext {
 
 extension GoRouterExtensions on GoRouter {
   AppStateNotifier get appState => AppStateNotifier.instance;
+
   void prepareAuthEvent([bool ignoreRedirect = false]) =>
       appState.hasRedirect() && !ignoreRedirect
           ? null
           : appState.updateNotifyOnAuthChange(false);
+
   bool shouldRedirect(bool ignoreRedirect) =>
       !ignoreRedirect && appState.hasRedirect();
+
   void clearRedirectLocation() => appState.clearRedirectLocation();
+
   void setRedirectLocationIfUnset(String location) =>
       appState.updateNotifyOnAuthChange(false);
 }
@@ -207,10 +234,12 @@ extension GoRouterExtensions on GoRouter {
 extension _GoRouterStateExtensions on GoRouterState {
   Map<String, dynamic> get extraMap =>
       extra != null ? extra as Map<String, dynamic> : {};
+
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
     ..addAll(uri.queryParameters)
     ..addAll(extraMap);
+
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
       : TransitionInfo.appDefault();
@@ -230,9 +259,12 @@ class FFParameters {
       state.allParams.isEmpty ||
       (state.allParams.length == 1 &&
           state.extraMap.containsKey(kTransitionInfoKey));
+
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
+
   bool get hasFutures => state.allParams.entries.any(isAsyncParam);
+
   Future<bool> completeFutures() => Future.wait(
         state.allParams.entries.where(isAsyncParam).map(
           (param) async {
@@ -372,11 +404,13 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() =>
+      const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {
   const RootPageContext(this.isRootPage, [this.errorRoute]);
+
   final bool isRootPage;
   final String? errorRoute;
 

@@ -1,3 +1,5 @@
+import 'package:flutter_svg/svg.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -9,9 +11,15 @@ class FreeDialogWidget extends StatefulWidget {
   const FreeDialogWidget({
     super.key,
     required this.data,
+    required this.buttonText,
+    required this.title,
+    required this.iconImage,
   });
 
   final String? data;
+  final String? buttonText;
+  final String? title;
+  final String? iconImage;
 
   @override
   State<FreeDialogWidget> createState() => _FreeDialogWidgetState();
@@ -65,11 +73,37 @@ class _FreeDialogWidgetState extends State<FreeDialogWidget> {
         ),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  widget.iconImage ?? '',
+                  fit: BoxFit.contain,
+                  width: 16,
+                  height: 16,
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                  child: Text(
+                    widget.title!,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color000000,
+                      letterSpacing: 0.0,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 24.0),
             child: Text(
               widget.data!,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -87,11 +121,9 @@ class _FreeDialogWidgetState extends State<FreeDialogWidget> {
                 Expanded(
                   child: FFButtonWidget(
                     onPressed: () async {
-                      Navigator.pop(context);
+                      Navigator.of(context).pop(true);
                     },
-                    text: FFLocalizations.of(context).getText(
-                      '90x2dekr' /* Ok */,
-                    ),
+                    text:widget.buttonText??'',
                     options: FFButtonOptions(
                       height: 40.0,
                       padding:

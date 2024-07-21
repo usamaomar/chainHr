@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/scheduler.dart';
+
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
@@ -34,7 +39,26 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+      if (kDebugMode) {
+        _model.textController1.text = "nancy@complete-chain.com";
+        _model.textController2.text = "password";
+      }
+    }));
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (FFAppState().selectedLangugeAppState == 0) {
+        String defaultLocale = Platform.localeName.split('_')[0];
+        if (defaultLocale == 'en') {
+          FFAppState().selectedLangugeAppState = 1;
+          setAppLanguage(context, FFAppState().getSelectedLanguge);
+        } else {
+          FFAppState().selectedLangugeAppState = 2;
+          setAppLanguage(context, FFAppState().getSelectedLanguge);
+        }
+      } else {
+        setAppLanguage(context, FFAppState().getSelectedLanguge);
+      }
+    });
   }
 
   @override
@@ -267,14 +291,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 15.0, 0.0, 0.0),
+                                  0.0, 15.0, 0.0, 20.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   _model.apiResult5ki =
                                       await HrGroupGroup.loginApiCallCall.call(
+                                        context: context,
                                     email: _model.textController1.text,
                                     password: _model.textController2.text,
                                     lang: 'ar',
+                                    platform: Platform.isAndroid ? 'Android' : 'Ios',
                                     fcm: 'ssss',
                                   );
 
@@ -290,7 +316,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     _model.employmentInfoCall =
                                         await HrGroupGroup
                                             .employmentInfoApiCallCall
-                                            .call();
+                                            .call(context: context,);
 
                                     if ((_model.employmentInfoCall?.succeeded ??
                                         true)) {
@@ -303,9 +329,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       ))!;
                                       setState(() {});
                                     }
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    await authManager.signIn(
+                                      authenticationToken:
+                                      FFAppState().UserModelState.token,
+                                      userData: FFAppState().UserModelState,
+                                    );
 
-                                    context.pushNamedAuth(
-                                        'HomePage', context.mounted);
+                                    context.pushReplacementNamed('HomePage');
+
                                   } else {
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
@@ -325,9 +357,17 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
                                             child: FreeDialogWidget(
+                                              iconImage: 'assets/images/flag.svg',
+                                              title: FFLocalizations.of(context).getVariableText(
+                                                enText: 'Error',
+                                                arText: "حدثت مشكلة ما",
+                                              ),
                                               data: (_model
                                                       .apiResult5ki?.bodyText ??
                                                   ''),
+                                              buttonText: FFLocalizations.of(context).getText(
+                                                '90x2dekr' /* Ok */,
+                                              ),
                                             ),
                                           ),
                                         );
@@ -335,12 +375,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     ).then((value) => safeSetState(() {}));
                                   }
 
-                                  GoRouter.of(context).prepareAuthEvent();
-                                  await authManager.signIn(
-                                    authenticationToken:
-                                        FFAppState().UserModelState.token,
-                                    userData: FFAppState().UserModelState,
-                                  );
 
                                   setState(() {});
                                 },

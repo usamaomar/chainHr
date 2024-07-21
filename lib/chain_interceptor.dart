@@ -27,9 +27,17 @@ class ChainInterceptor extends FFApiInterceptor {
     required BuildContext context,
     required Future<ApiCallResponse> Function() retryFn,
   }) async {
-    if (getJsonField((response.jsonBody), r'''$.message''',) != null) {
-      if (getJsonField((response.jsonBody), r'''$.message''',) == 'Not authenticated') {
-        WidgetsBinding.instance.addPostFrameCallback((_) async{
+    if (getJsonField(
+          (response.jsonBody),
+          r'''$.message''',
+        ) !=
+        null) {
+      if (getJsonField(
+            (response.jsonBody),
+            r'''$.message''',
+          ) ==
+          'Not authenticated') {
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
           await showModalBottomSheet(
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
@@ -38,31 +46,25 @@ class ChainInterceptor extends FFApiInterceptor {
             context: context,
             builder: (context) {
               return GestureDetector(
-                onTap: () =>  FocusScope.of(context)
-                    .unfocus(),
+                onTap: () => FocusScope.of(context).unfocus(),
                 child: Padding(
-                  padding: MediaQuery.viewInsetsOf(
-                      context),
-                  child:   FreeDialogWidget(
-                    iconImage: 'assets/images/Layer_1_(2).svg',
+                  padding: MediaQuery.viewInsetsOf(context),
+                  child: FreeDialogWidget(
+                    iconImage: 'assets/images/flag.svg',
                     title: FFLocalizations.of(context).getVariableText(
                       enText: 'Error',
                       arText: "حدثت مشكلة ما",
                     ),
-                    data: FFLocalizations.of(context).getVariableText(
-                      enText: 'You are logged in from other device so you must Log Out',
-                      arText: "لقد قمت بتسجيل الدخول من جهاز آخر لذا يجب عليك تسجيل الخروج",
-                    ),
-                    buttonText: FFLocalizations.of(context).getVariableText(
-                      enText: 'Log Out',
-                      arText: "تسجيل الخروج",
+                    data: 'Log Out',
+                    buttonText: FFLocalizations.of(context).getText(
+                      '90x2dekr' /* Ok */,
                     ),
                   ),
                 ),
               );
             },
           ).then((value) {
-            context.pushReplacementNamed('LoginPage');
+            Navigator.of(context).pushReplacementNamed('HomePage');
           });
         });
         return response;
