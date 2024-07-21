@@ -29,7 +29,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResult8rq = await HrGroupGroup.dashboardApiCallCall.call();
+      _model.apiResult8rq =
+          await HrGroupGroup.dashboardApiCallCall.call(context: context);
 
       if ((_model.apiResult8rq?.succeeded ?? true)) {
         _model.dashBoardModel = DashboardModelStruct.maybeFromMap(getJsonField(
@@ -76,8 +77,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                FFLocalizations.of(context).getText(
-                  '34ab8eu1' /* Morning ,Helen Hills */,
+                FFLocalizations.of(context).getVariableText(
+                  enText: 'Morning ,${FFAppState().UserModelState.name}',
+                  arText: 'مرحبا ,${FFAppState().UserModelState.name}',
                 ),
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Inter',
@@ -89,7 +91,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(100.0),
                 child: Image.network(
-                  'https://picsum.photos/seed/214/600',
+                  FFAppState().UserModelState.profilePhotoPath,
                   width: 24.0,
                   height: 24.0,
                   fit: BoxFit.contain,
@@ -105,12 +107,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           top: true,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Flexible(
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 18.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -140,12 +142,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(20.0, 0.0, 20.0, 0.0),
                                         child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'tpajy49m' /* 00 : 00 : 00 */,
-                                          ),
+                                          (_model.dashBoardModel?.pin ??
+                                                  _model
+                                                      .dashBoardModel?.pout) ??
+                                              '',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -157,8 +160,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            28.0, 0.0, 28.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(28.0, 0.0, 28.0, 0.0),
                                         child: Container(
                                           width: 100.0,
                                           height: 100.0,
@@ -168,11 +171,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           child: Stack(
                                             children: [
-                                              if (valueOrDefault<bool>(
-                                                _model.isBunchedIn == false,
-                                                false,
-                                              ))
-                                                InkWell(
+                                              Visibility(
+                                                visible:
+                                                    _model.isBunchedIn == false,
+                                                child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
                                                   focusColor:
@@ -191,6 +193,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         await HrGroupGroup
                                                             .createPunchApiApiCallCall
                                                             .call(
+                                                      context: context,
                                                       lat:
                                                           currentUserLocationValue
                                                               ?.toString(),
@@ -202,14 +205,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           .shiftId
                                                           .toString(),
                                                     );
-
                                                     if ((_model.apiResultvogpun
                                                             ?.succeeded ??
                                                         true)) {
                                                       _model.apiResult7jp =
                                                           await HrGroupGroup
                                                               .dashboardApiCallCall
-                                                              .call();
+                                                              .call(
+                                                                  context:
+                                                                      context);
 
                                                       if ((_model.apiResult7jp
                                                               ?.succeeded ??
@@ -237,9 +241,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               true;
                                                           setState(() {});
                                                         }
+                                                      } else {
+                                                        error(
+                                                            context,
+                                                            _model.unfocusNode,
+                                                            _model.apiResult7jp
+                                                                ?.bodyText);
                                                       }
+                                                    } else {
+                                                      error(
+                                                          context,
+                                                          _model.unfocusNode,
+                                                          _model.apiResultvogpun
+                                                              ?.bodyText);
                                                     }
-
                                                     setState(() {});
                                                   },
                                                   child: Stack(
@@ -283,8 +298,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             Text(
                                                               FFLocalizations.of(
                                                                       context)
-                                                                  .getText(
-                                                                'rm81pcu5' /* Clock In */,
+                                                                  .getVariableText(
+                                                                enText: 'In',
+                                                                arText: "دخول",
                                                               ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
@@ -310,11 +326,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     ],
                                                   ),
                                                 ),
-                                              if (valueOrDefault<bool>(
-                                                _model.isBunchedIn == true,
-                                                false,
-                                              ))
-                                                InkWell(
+                                              ),
+                                              Visibility(
+                                                visible:
+                                                    _model.isBunchedIn == true,
+                                                child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
                                                   focusColor:
@@ -333,6 +349,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         await HrGroupGroup
                                                             .createPunchApiApiCallCall
                                                             .call(
+                                                      context: context,
                                                       lat:
                                                           currentUserLocationValue
                                                               ?.toString(),
@@ -351,7 +368,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       _model.apiResult8rq0 =
                                                           await HrGroupGroup
                                                               .dashboardApiCallCall
-                                                              .call();
+                                                              .call(
+                                                        context: context,
+                                                      );
 
                                                       if ((_model.apiResult8rq0
                                                               ?.succeeded ??
@@ -391,7 +410,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             BorderRadius
                                                                 .circular(0.0),
                                                         child: SvgPicture.asset(
-                                                          'assets/images/Ellipse_1.svg',
+                                                          'assets/images/Ellipse_22.svg',
                                                           fit: BoxFit.contain,
                                                         ),
                                                       ),
@@ -425,8 +444,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             Text(
                                                               FFLocalizations.of(
                                                                       context)
-                                                                  .getText(
-                                                                'a3dk4bxp' /* Clock In */,
+                                                                  .getVariableText(
+                                                                enText: 'Out',
+                                                                arText: "خروج",
                                                               ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
@@ -452,6 +472,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     ],
                                                   ),
                                                 ),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -460,7 +481,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: const AlignmentDirectional(0.0, 1.0),
+                                  alignment:
+                                      const AlignmentDirectional(0.0, 1.0),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
@@ -493,8 +515,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
                 Flexible(
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 34.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 34.0, 0.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -508,6 +530,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               0,
                               20.0,
                             ),
+                            physics: const NeverScrollableScrollPhysics(),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -524,7 +547,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed('ApplyLeavePage');
+                                  context.pushNamed('ApplyLeavePage',
+                                      queryParameters: {
+                                        'leaveModel': serializeParam(
+                                            _model.dashBoardModel?.toMap(),
+                                            ParamType.JSON)
+                                      });
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -550,8 +578,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 15.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
                                         child: Text(
                                           FFLocalizations.of(context).getText(
                                             '4or8y847' /* Apply Leave */,
@@ -604,8 +632,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 15.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
                                         child: Text(
                                           FFLocalizations.of(context).getText(
                                             '0oi3twtc' /* Leave Request */,
@@ -658,8 +686,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 15.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
                                         child: Text(
                                           FFLocalizations.of(context).getText(
                                             'ol7i67li' /* Apply Vacation */,
@@ -712,8 +740,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 15.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
                                         child: Text(
                                           FFLocalizations.of(context).getText(
                                             '2phlxskw' /* Vacation Request */,
@@ -766,8 +794,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 15.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
                                         child: Text(
                                           FFLocalizations.of(context).getText(
                                             '5m50xncd' /* My Attendance */,
@@ -811,8 +839,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 15.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 15.0, 0.0, 0.0),
                                       child: Text(
                                         FFLocalizations.of(context).getText(
                                           'kotydpsu' /* Holiday List */,

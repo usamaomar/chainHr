@@ -42,6 +42,10 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      _selectedLangugeAppState = prefs.getInt('ff_selectedLangugeAppState') ??
+          _selectedLangugeAppState;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -75,6 +79,18 @@ class FFAppState extends ChangeNotifier {
     updateFn(_EmploymentInfoState);
     prefs.setString('ff_EmploymentInfoState', _EmploymentInfoState.serialize());
   }
+
+  int _selectedLangugeAppState = 1;
+  int get selectedLangugeAppState => _selectedLangugeAppState;
+  set selectedLangugeAppState(int value) {
+    _selectedLangugeAppState = value;
+    prefs.setInt('ff_selectedLangugeAppState', value);
+  }
+
+  String get getSelectedLanguge{
+    return _selectedLangugeAppState == 1 ? 'en' : 'ar';
+  }
+
 }
 
 void _safeInit(Function() initializeField) {

@@ -1,3 +1,4 @@
+import '../../backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/status_component/status_component_widget.dart';
@@ -22,7 +23,25 @@ class _LeaveRequestPageWidgetState extends State<LeaveRequestPageWidget> {
     super.initState();
     _model = createModel(context, () => LeaveRequestPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_)  async {
+
+    _model.leaveListApiCall = await HrGroupGroup.leaveTypeApiCall.call(
+    context: context,
+    );
+        if ((_model.leaveListApiCall?.succeeded ?? true)) {
+    // _model.listOfLocalCategory = getStructList(
+    // getJsonField(
+    // (_model.leaveTypeApiCall?.jsonBody ?? ''),
+    // r'''$''',
+    // ),
+    // LeaveTypeStruct.fromMap,
+    // ) ??
+    // [];
+    setState(() {});
+    }
+
+
+    });
   }
 
   @override

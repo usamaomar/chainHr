@@ -59,6 +59,7 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
+    setLocale(FFAppState().getSelectedLanguge);
     userStream = hrChainAuthUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
