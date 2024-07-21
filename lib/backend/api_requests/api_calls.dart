@@ -32,6 +32,8 @@ class HrGroupGroup {
   static DashboardApiCallCall dashboardApiCallCall = DashboardApiCallCall();
   static EmploymentInfoApiCallCall employmentInfoApiCallCall =
       EmploymentInfoApiCallCall();
+  static LeaveTypeCall leaveTypeCall = LeaveTypeCall();
+  static LeaveListCall leaveListCall = LeaveListCall();
 
   static final interceptors = [
     ChainInterceptor(),
@@ -203,6 +205,83 @@ class EmploymentInfoApiCallCall {
           'Accept': 'application/json',
         },
         params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      HrGroupGroup.interceptors,
+    );
+  }
+}
+
+class LeaveTypeCall {
+  Future<ApiCallResponse> call({
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'leaveType',
+        apiUrl: '$baseUrl/api/leaveType',
+        callType: ApiCallType.GET,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '$platform',
+          'Build-Number': '$buildNumber',
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      HrGroupGroup.interceptors,
+    );
+  }
+}
+
+class LeaveListCall {
+  Future<ApiCallResponse> call({
+    String? date = '',
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'leaveList',
+        apiUrl: '$baseUrl/api/employee/leave/all/$date',
+        callType: ApiCallType.GET,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '$platform',
+          'Build-Number': '$buildNumber',
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+        },
+        params: {
+          'date': date,
+        },
         returnBody: true,
         encodeBodyUtf8: false,
         decodeUtf8: false,
