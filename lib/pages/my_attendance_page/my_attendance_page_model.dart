@@ -1,3 +1,4 @@
+import '../../backend/api_requests/api_manager.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/status_attendance_component/status_attendance_component_widget.dart';
 import 'my_attendance_page_widget.dart' show MyAttendancePageWidget;
@@ -9,6 +10,9 @@ class MyAttendancePageModel extends FlutterFlowModel<MyAttendancePageWidget> {
   final unfocusNode = FocusNode();
   // Model for StatusAttendanceComponent component.
   late StatusAttendanceComponentModel statusAttendanceComponentModel;
+  DateTime? currentDate;
+  ApiCallResponse? monthAttendanceApiCall;
+
 
   @override
   void initState(BuildContext context) {

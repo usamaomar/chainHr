@@ -39,6 +39,8 @@ class HrGroupGroup {
   static VacationListApiCall vacationListApiCall = VacationListApiCall();
   static CreateLeaveApiCall createLeaveApiCall = CreateLeaveApiCall();
   static CreateVacationApiCall createVacationApiCall = CreateVacationApiCall();
+  static MonthAttendanceApiCall monthAttendanceApiCall = MonthAttendanceApiCall();
+
 
   static final interceptors = [
     ChainInterceptor(),
@@ -98,6 +100,45 @@ class VacationTypeApiCall {
         ApiCallOptions(
           callName: 'VacationTypeApiCall',
           apiUrl: '$baseUrl/api/vacationTypes',
+          callType: ApiCallType.GET,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': ''.platformSpecific,
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          }.addUserHeaders(),
+          params: const {},
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
+ 
+class MonthAttendanceApiCall {
+  Future<ApiCallResponse> call({
+    required BuildContext context,
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+    String? date,
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'MonthAttendanceApiCall',
+          apiUrl: '$baseUrl/api/employee/monthAttendanceSummary/$date',
           callType: ApiCallType.GET,
           headers: {
             'Content-Type': 'application/json',

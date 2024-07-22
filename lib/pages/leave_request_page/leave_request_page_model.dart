@@ -1,6 +1,7 @@
 import 'package:hr_chain/backend/backend.dart';
 
 import '../../backend/api_requests/api_manager.dart';
+import '../../backend/schema/structs/leave_model_struct.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/status_component/status_component_widget.dart';
 import 'leave_request_page_widget.dart' show LeaveRequestPageWidget;

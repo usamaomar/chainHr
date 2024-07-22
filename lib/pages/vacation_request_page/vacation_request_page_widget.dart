@@ -1,9 +1,8 @@
 import 'package:hr_chain/auth/custom_auth/auth_util.dart';
-import 'package:hr_chain/backend/schema/structs/vacation_model_struct.dart';
-
-import '../backend/api_requests/api_calls.dart';
-import '../backend/schema/util/schema_util.dart';
-import '../component/title_tool_bar/title_tool_bar_widget.dart';
+import '../../backend/api_requests/api_calls.dart';
+import '../../backend/schema/structs/data_struct.dart';
+import '../../backend/schema/util/schema_util.dart';
+import '../../component/title_tool_bar/title_tool_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/status_component/status_component_widget.dart';
@@ -43,7 +42,7 @@ class _VacationRequestPageWidgetState extends State<VacationRequestPageWidget> {
             (_model.leaveListApiCall?.jsonBody ?? ''),
             r'''$.data''',
           ),
-          VacationModelStruct.fromMap,
+          DataStruct.fromMap,
         ) ??
             [];
         setState(() {});
@@ -170,9 +169,7 @@ class _VacationRequestPageWidgetState extends State<VacationRequestPageWidget> {
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             23.0, 10.0, 23.0, 10.0),
                                         child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '4wi4agg4' /* Sick Leave */,
-                                          ),
+                                          positionItem.vacationTypeName,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(

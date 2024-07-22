@@ -215,7 +215,7 @@ class VacationsStruct extends FFFirebaseStruct {
         vacationTypeName: data['vacationTypeName'] as String?,
         day: data['day'] as String?,
         dayName: data['day_name'] as String?,
-        attachmentFull: data['attachment_full'] as String?,
+        // attachmentFull: data['attachment_full'] as String?,
         vacationType: VacationTypeStruct.maybeFromMap(data['vacation_type']),
       );
 

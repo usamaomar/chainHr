@@ -179,7 +179,7 @@ class DataStruct extends FFFirebaseStruct {
         createdAt: data['created_at'] as String?,
         updatedAt: data['updated_at'] as String?,
         vacationTypeName: data['vacation_type_name'] as String?,
-        attachmentFull: data['attachment_full'] as String?,
+        // attachmentFull: data['attachment_full'] as String?,
         vacations: getStructList(
           data['vacations'],
           VacationsStruct.fromMap,

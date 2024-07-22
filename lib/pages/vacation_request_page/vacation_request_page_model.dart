@@ -1,6 +1,5 @@
-import '../backend/api_requests/api_manager.dart';
-import '../backend/schema/structs/leave_model_struct.dart';
-import '../backend/schema/structs/vacation_model_struct.dart';
+import '../../backend/api_requests/api_manager.dart';
+import '../../backend/schema/structs/data_struct.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/status_component/status_component_widget.dart';
 import 'vacation_request_page_widget.dart' show VacationRequestPageWidget;
@@ -18,18 +17,18 @@ class VacationRequestPageModel
   ApiCallResponse? leaveListApiCall;
   bool? isLoading = false;
 
-  List<VacationModelStruct> listOfLocalCategory = [];
-  void addToListOfLocalCategory(VacationModelStruct item) =>
+  List<DataStruct> listOfLocalCategory = [];
+  void addToListOfLocalCategory(DataStruct item) =>
       listOfLocalCategory.add(item);
-  void removeFromListOfLocalCategory(VacationModelStruct item) =>
+  void removeFromListOfLocalCategory(DataStruct item) =>
       listOfLocalCategory.remove(item);
   void removeAtIndexFromListOfLocalCategory(int index) =>
       listOfLocalCategory.removeAt(index);
   void insertAtIndexInListOfLocalCategory(
-      int index, VacationModelStruct item) =>
+      int index, DataStruct item) =>
       listOfLocalCategory.insert(index, item);
   void updateListOfLocalCategoryAtIndex(
-      int index, Function(VacationModelStruct) updateFn) =>
+      int index, Function(DataStruct) updateFn) =>
       listOfLocalCategory[index] = updateFn(listOfLocalCategory[index]);
 
 
