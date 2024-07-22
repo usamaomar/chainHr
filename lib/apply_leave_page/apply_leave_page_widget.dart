@@ -223,7 +223,7 @@ class _ApplyLeavePageWidgetState extends State<ApplyLeavePageWidget> {
                                           0.0, 16.0, 0.0, 0.0),
                                       child: Text(
                                         FFLocalizations.of(context).getText(
-                                          '6hqe7xp1' /* Sick vacation Balance */,
+                                          '6hqe7xp1' /* Sick vacation Balanc */,
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
