@@ -257,7 +257,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '4 days , 6 hours , 36 minutes',
     },
     '6hqe7xp1': {
-      'en': 'Sick vacation Balance',
+      'en': 'Sick vacation Balanc',
       'ar': 'رصيد الإجازة المرضية',
     },
     '5dspgvvd': {
