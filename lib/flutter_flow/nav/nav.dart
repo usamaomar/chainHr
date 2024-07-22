@@ -9,6 +9,7 @@ import '../../pages/leave_request_page/leave_request_page_widget.dart';
 import '../../pages/my_profile_page/my_profile_page_widget.dart';
 import '../../pages/notifications_page/notifications_page_widget.dart';
 import '../../pages/select_page/select_page_widget.dart';
+import '../../pages/select_vacation_page/select_vacation_page_widget.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 
@@ -135,7 +136,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ApplyVacationPage',
           path: '/applyVacationPage',
-          builder: (context, params) => const ApplyVacationPageWidget(),
+          builder: (context, params) => ApplyVacationPageWidget(
+              dashboardModelStruct: DashboardModelStruct.maybeFromMap(
+                  params.getParam('leaveModel', ParamType.JSON))),
         ),
         FFRoute(
           name: 'LeaveRequestPage',
@@ -146,6 +149,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'SelectPageWidget',
           path: '/SelectPageWidget',
           builder: (context, params) => const SelectPageWidget(),
+        ),
+        FFRoute(
+          name: 'SelectVacationPageWidget',
+          path: '/selectVacationPageWidget',
+          builder: (context, params) => const SelectVacationPageWidget(),
         ),
         FFRoute(
           name: 'VacationRequestPage',

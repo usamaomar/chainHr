@@ -92,6 +92,18 @@ void error(BuildContext context, FocusNode unfocusNode, String? error) async {
   );
 }
 
+extension DateFormatter on String {
+  String toFormattedDate(String format) {
+    try {
+      final dateTime = DateTime.parse(this);
+      final formatter = DateFormat(format);
+      return formatter.format(dateTime);
+    } catch (e) {
+      print('Error parsing date: $e');
+      return this; // Return the original string if parsing fails
+    }
+  }
+}
 
 DateTime combineDateAndTime(DateTime? date, DateTime? time) {
   return DateTime(
