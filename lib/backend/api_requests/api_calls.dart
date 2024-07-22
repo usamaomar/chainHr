@@ -34,8 +34,11 @@ class HrGroupGroup {
   static EmploymentInfoApiCallCall employmentInfoApiCallCall =
       EmploymentInfoApiCallCall();
   static LeaveTypeApiCall leaveTypeApiCall = LeaveTypeApiCall();
+  static VacationTypeApiCall vacationTypeApiCall = VacationTypeApiCall();
   static LeaveListApiCall leaveListApiCall = LeaveListApiCall();
+  static VacationListApiCall vacationListApiCall = VacationListApiCall();
   static CreateLeaveApiCall createLeaveApiCall = CreateLeaveApiCall();
+  static CreateVacationApiCall createVacationApiCall = CreateVacationApiCall();
 
   static final interceptors = [
     ChainInterceptor(),
@@ -79,8 +82,7 @@ class LeaveTypeApiCall {
   }
 }
 
-
-class LeaveListApiCall {
+class VacationTypeApiCall {
   Future<ApiCallResponse> call({
     required BuildContext context,
     String? platform = '',
@@ -94,8 +96,83 @@ class LeaveListApiCall {
     );
     return FFApiInterceptor.makeApiCall(
         ApiCallOptions(
+          callName: 'VacationTypeApiCall',
+          apiUrl: '$baseUrl/api/vacationTypes',
+          callType: ApiCallType.GET,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': ''.platformSpecific,
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          }.addUserHeaders(),
+          params: const {},
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
+class LeaveListApiCall {
+  Future<ApiCallResponse> call({
+    required BuildContext context,
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+    String? date = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
           callName: 'DashboardApiCall',
-          apiUrl: '$baseUrl/api/leaveType',
+          apiUrl: '$baseUrl/api/employee/leave/all/$date',
+          callType: ApiCallType.GET,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': ''.platformSpecific,
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          }.addUserHeaders(),
+          params: const {},
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+class VacationListApiCall {
+  Future<ApiCallResponse> call({
+    required BuildContext context,
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+    String? date = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'DashboardApiCall',
+          apiUrl: '$baseUrl/api/employee/vacationBulk/all/$date',
           callType: ApiCallType.GET,
           headers: {
             'Content-Type': 'application/json',
@@ -264,6 +341,71 @@ class CreateLeaveApiCall {
           decodeUtf8: false,
           cache: false,
           isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
+// params["start_date"] = '${selectedFromDateValue}';
+// params["end_date"] = '${selectedToDateValue}';
+// params["type_id"] =
+// selectedModel == null ? list[0].id : selectedModel?.id;
+// params["bulk"] = "1";
+// params["employee_id"] = "";
+
+class CreateVacationApiCall {
+  Future<ApiCallResponse> call({
+    required BuildContext context,
+    FFUploadedFile? file,
+    String? startDate = '',
+    String? endDate = '',
+    int? typeId,
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "start_date": "$startDate",
+  "end_date": "$endDate",
+  "bulk": "1",
+  "employee_id": "",
+  "type_id": $typeId
+}''';
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'UploudImageApi',
+          apiUrl: '$baseUrl/api/employee/vacationBulk',
+          callType: ApiCallType.POST,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': '$platform',
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          },
+          params: {
+            'attachment': file,
+            "start_date": "$startDate",
+            "end_date": "$endDate",
+            "bulk": "1",
+            "employee_id": "",
+            "type_id": '$typeId'
+          },
+          bodyType: BodyType.MULTIPART,
+          body: ffApiRequestBody,
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
           alwaysAllowBody: false,
         ),
         HrGroupGroup.interceptors,

@@ -660,7 +660,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed('ApplyVacationPage');
+                                  context.pushNamed('ApplyVacationPage',
+                                      queryParameters: {
+                                        'leaveModel': serializeParam(
+                                            _model.dashBoardModel?.toMap(),
+                                            ParamType.JSON)
+                                      });
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(

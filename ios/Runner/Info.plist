@@ -52,7 +52,10 @@
     <key>FlutterDeepLinkingEnabled</key>
     <true/>
 
-
+    <key>NSCameraUsageDescription</key>
+	<string>In order to take a picture, wassini app requires permission to access the camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>In order to upload data, this app requires permission to access the photo library.</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
