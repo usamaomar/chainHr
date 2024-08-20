@@ -153,174 +153,196 @@ class _MyAttendancePageWidgetState extends State<MyAttendancePageWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Flexible(
-                                  child: Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    elevation: 4.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      20.0, 0.0, 20.0, 0.0),
-                                              child: Container(
-                                                width: 50.0,
-                                                decoration: BoxDecoration(
+                                  child: InkWell(
+                                    onTap: () {
+                                      context.pushNamed('MyAttendanceDetailsPageWidget', queryParameters: {
+                                        'DayModelStruct':
+                                        serializeParam(positionItem.toMap(), ParamType.JSON)
+                                      });
+                                    },
+                                    child: Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      elevation: 4.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                        20.0, 0.0, 20.0, 0.0),
+                                                child: Container(
+                                                  width: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        positionItem.date
+                                                            .toFormattedDate(
+                                                                'dd'),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .color828282,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                      ),
+                                                      Text(
+                                                        positionItem.date
+                                                            .toFormattedDate(
+                                                                'MMM'),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .color828282,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                      Text(
+                                                        positionItem.date
+                                                            .toFormattedDate(
+                                                                'yyyy'),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .color828282,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 100.0,
+                                                child: VerticalDivider(
+                                                  thickness: 1.0,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondaryBackground,
-                                                ),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      positionItem.date
-                                                          .toFormattedDate(
-                                                              'dd'),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .color828282,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                    Text(
-                                                      positionItem.date
-                                                          .toFormattedDate(
-                                                              'MMM'),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .color828282,
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                    ),
-                                                    Text(
-                                                      positionItem.date
-                                                          .toFormattedDate(
-                                                              'yyyy'),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .color828282,
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                    ),
-                                                  ],
+                                                      .colorDDDDDD,
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 100.0,
-                                              child: VerticalDivider(
-                                                thickness: 1.0,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .colorDDDDDD,
-                                              ),
-                                            ),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                          0.0, 12.0, 0.0, 0.0),
-                                                  child: wrapWithModel(
-                                                    model: _model
-                                                        .statusAttendanceComponentModel,
-                                                    updateCallback: () =>
-                                                        setState(() {}),
-                                                    child:
-                                                        StatusAttendanceComponentWidget(
-                                                      status: (positionItem
-                                                                  .progress <
-                                                              50)
-                                                          ? 1
-                                                          : ((positionItem.progress >=
-                                                                      50 &&
-                                                                  positionItem
-                                                                          .progress <=
-                                                                      70)
-                                                              ? 3
-                                                              : 0),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 12.0,
+                                                            0.0, 0.0),
+                                                    child: wrapWithModel(
+                                                      model: _model
+                                                          .statusAttendanceComponentModel,
+                                                      updateCallback: () =>
+                                                          setState(() {}),
+                                                      child:
+                                                          StatusAttendanceComponentWidget(
+                                                        status: (positionItem
+                                                                    .progress <
+                                                                50)
+                                                            ? 1
+                                                            : ((positionItem.progress >=
+                                                                        50 &&
+                                                                    positionItem
+                                                                            .progress <=
+                                                                        70)
+                                                                ? 3
+                                                                : 0),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                          0.0, 12.0, 0.0, 16.0),
-                                                  child: Text(
-                                                    '${positionItem.progress}%',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: positionItem
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 12.0,
+                                                            0.0, 16.0),
+                                                    child: Text(
+                                                      '${positionItem.progress}%',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: positionItem
+                                                                .progress
+                                                                .toColor,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            1.5,
+                                                    child: LinearProgressBar(
+                                                      maxSteps: 100,
+                                                      progressType:
+                                                          LinearProgressBar
+                                                              .progressTypeLinear,
+                                                      // Use Linear progress
+                                                      currentStep:
+                                                          positionItem.progress,
+                                                      progressColor:
+                                                          positionItem
                                                               .progress.toColor,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                      backgroundColor:
+                                                          Colors.grey,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10), //  NEW
+                                                    ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      1.5,
-                                                  child: LinearProgressBar(
-                                                    maxSteps: 100,
-                                                    progressType:
-                                                        LinearProgressBar
-                                                            .progressTypeLinear,
-                                                    // Use Linear progress
-                                                    currentStep:
-                                                        positionItem.progress,
-                                                    progressColor: positionItem
-                                                        .progress.toColor,
-                                                    backgroundColor:
-                                                        Colors.grey,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10), //  NEW
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -332,27 +354,19 @@ class _MyAttendancePageWidgetState extends State<MyAttendancePageWidget> {
                 ),
               ),
               Visibility(
-                visible: _model.listOfLocalCategory.isEmpty == true && _model.isLoading == false,
+                visible: _model.listOfLocalCategory.isEmpty == true &&
+                    _model.isLoading == false,
                 child: Center(
                   child: Text(
-                    FFLocalizations.of(context)
-                        .getVariableText(
-                      enText:
-                      'No data is found !',
-                      arText:
-                      'لم يتم العثور على اي بيانات !',
+                    FFLocalizations.of(context).getVariableText(
+                      enText: 'No data is found !',
+                      arText: 'لم يتم العثور على اي بيانات !',
                     ),
-                    style:
-                    FlutterFlowTheme.of(context)
-                        .bodyMedium
-                        .override(
-                      fontFamily: 'Inter',
-                      color:
-                      FlutterFlowTheme.of(
-                          context)
-                          .color908888,
-                      letterSpacing: 0.0,
-                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          color: FlutterFlowTheme.of(context).color908888,
+                          letterSpacing: 0.0,
+                        ),
                   ),
                 ),
               ),

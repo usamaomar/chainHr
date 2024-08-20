@@ -46,7 +46,7 @@ class _SelectStatusListPageWidget extends State<SelectStatusListPageWidget> {
               arText: 'مقبول',
             ),
             id: 3,
-            status: 'Approved'));
+            status: 'initial_accepted'));
       });
     });
   }

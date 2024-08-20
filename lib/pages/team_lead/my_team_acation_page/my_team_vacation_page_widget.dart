@@ -266,8 +266,22 @@ class _MyTeamVacationPageWidgetState extends State<MyTeamVacationPageWidget> {
                                                     StatusModel.maybeFromMap(
                                                         value);
                                                 setState(() {
+                                                  _model
+                                                      .selectedListVacationsStruct?.clear();
+                                                  _model.selectedListDataStruct
+                                                      ?.map((toElement) {
+                                                    toElement.vacations
+                                                        .map((toEle) {
+                                                      _model
+                                                          .selectedListVacationsStruct
+                                                          ?.add(toEle);
+                                                    }).toList();
+                                                  }).toList();
                                                   _model.statusModel =
                                                       dataStruct;
+                                                  _model
+                                                      .selectedListVacationsStruct = filterVacationsByStatus( _model
+                                                      .selectedListVacationsStruct,_model.statusModel?.status.toLowerCase() ?? '');
                                                 });
                                               }
                                             });
@@ -398,13 +412,7 @@ class _MyTeamVacationPageWidgetState extends State<MyTeamVacationPageWidget> {
                             0.0, 150.0, 0.0, 0.0),
                         child: ListView.builder(
                           shrinkWrap: false,
-                          itemCount: _model.selectedListVacationsStruct
-                              ?.where((value) {
-                            return (_model.statusModel?.status.isEmpty ?? true)
-                                ? true
-                                : value.status.toLowerCase() ==
-                                    _model.statusModel?.status.toLowerCase();
-                          }).length,
+                          itemCount: _model.selectedListVacationsStruct?.length,
                           itemBuilder: (context, index) {
                             final positionItem =
                                 _model.selectedListVacationsStruct?[index];
@@ -487,6 +495,18 @@ class _MyTeamVacationPageWidgetState extends State<MyTeamVacationPageWidget> {
       return approved(dataStruct);
     }
   }
+  List<VacationsStruct>? filterVacationsByStatus(
+      List<VacationsStruct>? selectedListVacationsStruct, String status) {
+    // Check if the list is not null
+    if (selectedListVacationsStruct != null) {
+      // Filter the list based on the status
+      return selectedListVacationsStruct
+          .where((vacation) => vacation.status == status)
+          .toList();
+    }
+    // Return an empty list or null if the original list is null
+    return [];
+  }
 
   Widget approvedRejectButtons(VacationsStruct? dataStruct) {
     return Column(
@@ -541,11 +561,9 @@ class _MyTeamVacationPageWidgetState extends State<MyTeamVacationPageWidget> {
               Expanded(
                 child: FFButtonWidget(
                   onPressed: () async {
-
-                    // setState(() {
-                    //   dataStruct.status
-                    // });
-
+                    setState(() {
+                      dataStruct?.status = 'initial_accepted';
+                    });
                     approvedApi(dataStruct);
                   },
                   text: FFLocalizations.of(context).getVariableText(
@@ -582,6 +600,9 @@ class _MyTeamVacationPageWidgetState extends State<MyTeamVacationPageWidget> {
               Expanded(
                 child: FFButtonWidget(
                   onPressed: () async {
+                    setState(() {
+                      dataStruct?.status = 'Rejected';
+                    });
                     rejectApi(dataStruct);
                   },
                   text: FFLocalizations.of(context).getVariableText(

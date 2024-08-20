@@ -7,6 +7,7 @@ import '../../pages/apply_vacation_page/apply_vacation_page_widget.dart';
 import '../../pages/holiday_list_page/holiday_list_page_widget.dart';
 import '../../pages/home_page/home_page_widget.dart';
 import '../../pages/leave_request_page/leave_request_page_widget.dart';
+import '../../pages/my_attendance_details_page/my_attendance_details_page_widget.dart';
 import '../../pages/my_profile_page/my_profile_page_widget.dart';
 import '../../pages/notifications_page/notifications_page_widget.dart';
 import '../../pages/role_page/role_page_widget.dart';
@@ -119,6 +120,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : const HomePageWidget(),
         ),
         FFRoute(
+          name: 'MyAttendanceDetailsPageWidget',
+          path: '/myAttendanceDetails',
+          builder: (context, params) => MyAttendanceDetailsPageWidget(
+            dayModelStruct: DayModelStruct.maybeFromMap(
+                params.getParam('DayModelStruct', ParamType.JSON)),
+          ),
+        ),
+        FFRoute(
           name: 'SelectMyTeamListPageWidget',
           path: '/selectMyTeamListPageWidget',
           builder: (context, params) => const SelectMyTeamListPageWidget(),
@@ -133,7 +142,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'SelectStatusListPageWidget',
           path: '/selectStatusListPageWidget',
-          builder: (context, params) =>  const SelectStatusListPageWidget(),
+          builder: (context, params) => const SelectStatusListPageWidget(),
         ),
         FFRoute(
           name: 'MyTeamVacationPageWidget',

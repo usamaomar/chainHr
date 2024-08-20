@@ -53,6 +53,7 @@ class HrGroupGroup {
   static UpdateDetailsStateApiCall updateDetailsStateApiCall =
       UpdateDetailsStateApiCall();
   static ChangeTeamApiCall changeTeamApiCall = ChangeTeamApiCall();
+  static AttendanceDetailsApiCall attendanceDetails = AttendanceDetailsApiCall();
 
   static final interceptors = [
     ChainInterceptor(),
@@ -336,26 +337,28 @@ class UpdateDetailsStateApiCall {
       buildNumber: buildNumber,
       token: token,
     );
-//     final ffApiRequestBody = '''
-// {
-//   "action": "$action"
-// }''';
+    final ffApiRequestBody = '''
+{
+  "action": "$action"
+}''';
     return FFApiInterceptor.makeApiCall(
         ApiCallOptions(
           callName: 'DashboardApiCall',
           apiUrl: '$baseUrl/api/employee/vacationBulk/$id',
           callType: ApiCallType.PUT,
           headers: {
-            'Content-Type': 'application/json',
             'Platform': ''.platformSpecific,
             'Build-Number': '$buildNumber',
             'Authorization': 'Bearer $token',
             'Accept': 'application/json',
           }.addUserHeaders(),
-          params: {"action": '$action'},
+          params: {
+            'action': action
+          },
+          bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
           returnBody: true,
-          // body: ffApiRequestBody,
-          encodeBodyUtf8: true,
+          body: ffApiRequestBody,
+          encodeBodyUtf8: false,
           decodeUtf8: false,
           cache: false,
           isStreamingApi: false,
@@ -729,6 +732,44 @@ class EmploymentInfoApiCallCall {
         ApiCallOptions(
           callName: 'EmploymentInfoApiCall',
           apiUrl: '$baseUrl/api/employee/employmentInfo',
+          callType: ApiCallType.GET,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': '$platform',
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          }.addUserHeaders(),
+          params: const {},
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
+class AttendanceDetailsApiCall {
+  Future<ApiCallResponse> call({
+    required BuildContext context,
+    String? platform = '',
+    String? buildNumber = '',
+    String? date ,
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'attendanceDetailsApiCall',
+          apiUrl: '$baseUrl/api/employee/attendanceDetails/$date',
           callType: ApiCallType.GET,
           headers: {
             'Content-Type': 'application/json',
