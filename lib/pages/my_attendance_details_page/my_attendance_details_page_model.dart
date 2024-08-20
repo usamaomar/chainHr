@@ -1,6 +1,7 @@
 import 'package:hr_chain/backend/backend.dart';
 
 import '../../backend/api_requests/api_manager.dart';
+import '../../backend/schema/structs/attendance_model_struct.dart';
 import '../../backend/schema/structs/leave_model_struct.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/status_component/status_component_widget.dart';
@@ -18,19 +19,19 @@ class MyAttendanceDetailsPageModel extends FlutterFlowModel<MyAttendanceDetailsP
 
   DateTime? currentDate;
 
-  List<LeaveModelStruct> listOfLocalCategory = [];
-  void addToListOfLocalCategory(LeaveModelStruct item) =>
-      listOfLocalCategory.add(item);
-  void removeFromListOfLocalCategory(LeaveModelStruct item) =>
-      listOfLocalCategory.remove(item);
-  void removeAtIndexFromListOfLocalCategory(int index) =>
-      listOfLocalCategory.removeAt(index);
-  void insertAtIndexInListOfLocalCategory(
-      int index, LeaveModelStruct item) =>
-      listOfLocalCategory.insert(index, item);
-  void updateListOfLocalCategoryAtIndex(
-      int index, Function(LeaveModelStruct) updateFn) =>
-      listOfLocalCategory[index] = updateFn(listOfLocalCategory[index]);
+  AttendanceModelStruct? attendanceModelStruct;
+  // void addToListOfLocalCategory(LeaveModelStruct item) =>
+  //     listOfLocalCategory.add(item);
+  // void removeFromListOfLocalCategory(LeaveModelStruct item) =>
+  //     listOfLocalCategory.remove(item);
+  // void removeAtIndexFromListOfLocalCategory(int index) =>
+  //     listOfLocalCategory.removeAt(index);
+  // void insertAtIndexInListOfLocalCategory(
+  //     int index, LeaveModelStruct item) =>
+  //     listOfLocalCategory.insert(index, item);
+  // void updateListOfLocalCategoryAtIndex(
+  //     int index, Function(LeaveModelStruct) updateFn) =>
+  //     listOfLocalCategory[index] = updateFn(listOfLocalCategory[index]);
 
   @override
   void initState(BuildContext context) {
