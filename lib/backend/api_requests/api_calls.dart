@@ -35,6 +35,7 @@ class HrGroupGroup {
   static LeaveTypeCall leaveTypeCall = LeaveTypeCall();
   static LeaveListCall leaveListCall = LeaveListCall();
   static VacationListCall vacationListCall = VacationListCall();
+  static EstCall estCall = EstCall();
 
   static final interceptors = [
     ChainInterceptor(),
@@ -323,6 +324,48 @@ class VacationListCall {
         params: {
           'date': date,
         },
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      HrGroupGroup.interceptors,
+    );
+  }
+}
+
+class EstCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? action = '',
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'est',
+        apiUrl: '$baseUrl/vacationBulk/$id',
+        callType: ApiCallType.PUT,
+        headers: {
+          'Content-Type': 'application/json',
+          'Platform': '$platform',
+          'Build-Number': '$buildNumber',
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+        },
+        params: {
+          'action': action,
+        },
+        bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
         returnBody: true,
         encodeBodyUtf8: false,
         decodeUtf8: false,

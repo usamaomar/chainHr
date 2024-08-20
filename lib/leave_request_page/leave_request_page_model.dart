@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class LeaveRequestPageModel extends FlutterFlowModel<LeaveRequestPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for StatusComponent component.
   late StatusComponentModel statusComponentModel;
 
@@ -17,7 +16,6 @@ class LeaveRequestPageModel extends FlutterFlowModel<LeaveRequestPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     statusComponentModel.dispose();
   }
 }

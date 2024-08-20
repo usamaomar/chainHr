@@ -7,7 +7,6 @@ class VacationRequestPageModel
     extends FlutterFlowModel<VacationRequestPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for StatusComponent component.
   late StatusComponentModel statusComponentModel;
 
@@ -18,7 +17,6 @@ class VacationRequestPageModel
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     statusComponentModel.dispose();
   }
 }

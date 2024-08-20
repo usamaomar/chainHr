@@ -17,7 +17,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (DashboardApiCall)] action in HomePage widget.
   ApiCallResponse? apiResult8rq;
   // Stores action output result for [Backend Call - API (CreatePunchApiApiCall)] action in Stack widget.
@@ -33,7 +32,5 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

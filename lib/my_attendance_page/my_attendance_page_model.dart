@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class MyAttendancePageModel extends FlutterFlowModel<MyAttendancePageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for StatusAttendanceComponent component.
   late StatusAttendanceComponentModel statusAttendanceComponentModel;
 
@@ -18,7 +17,6 @@ class MyAttendancePageModel extends FlutterFlowModel<MyAttendancePageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     statusAttendanceComponentModel.dispose();
   }
 }
