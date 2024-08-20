@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -37,7 +40,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           (_model.apiResult8rq?.jsonBody ?? ''),
           r'''$''',
         ));
-        setState(() {});
+
         if (_model.dashBoardModel?.status == 'OUT' ? true : false) {
           _model.isBunchedIn = false;
           setState(() {});
@@ -76,17 +79,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                FFLocalizations.of(context).getVariableText(
-                  enText: 'Morning ,${FFAppState().UserModelState.name}',
-                  arText: 'مرحبا ,${FFAppState().UserModelState.name}',
+              Flexible(
+                child: Text(
+                  FFLocalizations.of(context).getVariableText(
+                    enText: 'Morning ,${FFAppState().UserModelState.name}',
+                    arText: 'مرحبا ,${FFAppState().UserModelState.name}',
+                  ),
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).color000000,
+                        fontSize: 22.0,
+                        letterSpacing: 0.0,
+                      ),
                 ),
-                style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Inter',
-                      color: FlutterFlowTheme.of(context).color000000,
-                      fontSize: 22.0,
-                      letterSpacing: 0.0,
-                    ),
               ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(100.0),
@@ -173,7 +178,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             children: [
                                               Visibility(
                                                 visible:
-                                                    _model.isBunchedIn == false,
+                                                    _model.isBunchedIn == true,
                                                 child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -195,11 +200,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             .call(
                                                       context: context,
                                                       lat:
-                                                          currentUserLocationValue
-                                                              ?.toString(),
+                                                          currentUserLocationValue?.latitude
+                                                              .toString(),
                                                       lng:
-                                                          currentUserLocationValue
-                                                              ?.toString(),
+                                                          currentUserLocationValue?.longitude
+                                                              .toString(),
                                                       shiftId: FFAppState()
                                                           .EmploymentInfoState
                                                           .shiftId
@@ -227,20 +232,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ''),
                                                           r'''$''',
                                                         ));
-                                                        setState(() {});
-                                                        if (_model.dashBoardModel
-                                                                    ?.status ==
-                                                                'OUT'
-                                                            ? true
-                                                            : false) {
+                                                        setState(() {
                                                           _model.isBunchedIn =
-                                                              false;
-                                                          setState(() {});
-                                                        } else {
-                                                          _model.isBunchedIn =
-                                                              true;
-                                                          setState(() {});
-                                                        }
+                                                              _model.dashBoardModel
+                                                                          ?.status ==
+                                                                      'OUT'
+                                                                  ? false
+                                                                  : true;
+                                                        });
                                                       } else {
                                                         error(
                                                             context,
@@ -329,7 +328,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               ),
                                               Visibility(
                                                 visible:
-                                                    _model.isBunchedIn == true,
+                                                    _model.isBunchedIn == false,
                                                 child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -351,11 +350,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             .call(
                                                       context: context,
                                                       lat:
-                                                          currentUserLocationValue
-                                                              ?.toString(),
+                                                          currentUserLocationValue?.latitude
+                                                              .toString(),
                                                       lng:
-                                                          currentUserLocationValue
-                                                              ?.toString(),
+                                                          currentUserLocationValue?.longitude
+                                                              .toString(),
                                                       shiftId: FFAppState()
                                                           .EmploymentInfoState
                                                           .shiftId
@@ -384,24 +383,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ''),
                                                           r'''$''',
                                                         ));
-                                                        setState(() {});
-                                                        if (_model.dashBoardModel
-                                                                    ?.status ==
-                                                                'OUT'
-                                                            ? true
-                                                            : false) {
+                                                        setState(() {
                                                           _model.isBunchedIn =
-                                                              false;
-                                                          setState(() {});
-                                                        } else {
-                                                          _model.isBunchedIn =
-                                                              true;
-                                                          setState(() {});
-                                                        }
+                                                              _model.dashBoardModel
+                                                                          ?.status ==
+                                                                      'OUT'
+                                                                  ? false
+                                                                  : true;
+                                                        });
                                                       }
                                                     }
-
-                                                    setState(() {});
                                                   },
                                                   child: Stack(
                                                     children: [
@@ -521,354 +512,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              15.0, 0.0, 15.0, 0.0),
-                          child: GridView(
-                            padding: const EdgeInsets.fromLTRB(
-                              0,
-                              0,
-                              0,
-                              20.0,
-                            ),
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20.0,
-                              mainAxisSpacing: 20.0,
-                              childAspectRatio: 1.4,
-                            ),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed('ApplyLeavePage',
-                                      queryParameters: {
-                                        'leaveModel': serializeParam(
-                                            _model.dashBoardModel?.toMap(),
-                                            ParamType.JSON)
-                                      });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(9.0),
-                                    border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .colorDEDEDE,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: SvgPicture.asset(
-                                          'assets/images/Layer_1.svg',
-                                          width: 37.0,
-                                          height: 37.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '4or8y847' /* Apply Leave */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .color67676B,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed('LeaveRequestPage');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(9.0),
-                                    border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .colorDEDEDE,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: SvgPicture.asset(
-                                          'assets/images/Layer_1_(1).svg',
-                                          width: 37.0,
-                                          height: 37.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '0oi3twtc' /* Leave Request */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .color67676B,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed('ApplyVacationPage',
-                                      queryParameters: {
-                                        'leaveModel': serializeParam(
-                                            _model.dashBoardModel?.toMap(),
-                                            ParamType.JSON)
-                                      });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(9.0),
-                                    border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .colorDEDEDE,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: SvgPicture.asset(
-                                          'assets/images/Layer_1_(2).svg',
-                                          width: 37.0,
-                                          height: 37.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'ol7i67li' /* Apply Vacation */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .color67676B,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed('VacationRequestPage');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(9.0),
-                                    border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .colorDEDEDE,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: SvgPicture.asset(
-                                          'assets/images/Layer_1_(3).svg',
-                                          width: 37.0,
-                                          height: 37.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '2phlxskw' /* Vacation Request */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .color67676B,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed('MyAttendancePage');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(9.0),
-                                    border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .colorDEDEDE,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: SvgPicture.asset(
-                                          'assets/images/Layer_1_(4).svg',
-                                          width: 37.0,
-                                          height: 37.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 15.0, 0.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '5m50xncd' /* My Attendance */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .color67676B,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(9.0),
-                                  border: Border.all(
-                                    color: FlutterFlowTheme.of(context)
-                                        .colorDEDEDE,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(0.0),
-                                      child: SvgPicture.asset(
-                                        'assets/images/Layer_1_(5).svg',
-                                        width: 37.0,
-                                        height: 37.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 15.0, 0.0, 0.0),
-                                      child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'kotydpsu' /* Holiday List */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .color67676B,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                15.0, 0.0, 15.0, 0.0),
+                            child: checkIF()),
                       ],
                     ),
                   ),
@@ -876,6 +522,520 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget checkIF() {
+    if (FFAppState().UserModelState.userType == employee) {
+      return employeeMethod();
+    } else {
+      return teamLead();
+    }
+  }
+
+  Widget employeeMethod() {
+    return GridView(
+      padding: const EdgeInsets.fromLTRB(
+        0,
+        0,
+        0,
+        20.0,
+      ),
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20.0,
+        mainAxisSpacing: 20.0,
+        childAspectRatio: 1.4,
+      ),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      children: [
+        applayLeave(),
+        leaveRequsets(),
+        applayVacation(),
+        vacationRequest(),
+        myAttenduce(),
+        holidayList(),
+      ],
+    );
+  }
+
+  Widget teamLead() {
+    return GridView(
+      padding: const EdgeInsets.fromLTRB(
+        0,
+        0,
+        0,
+        20.0,
+      ),
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20.0,
+        mainAxisSpacing: 20.0,
+        childAspectRatio: 1.4,
+      ),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      children: [
+        myTeam(),
+        myTeamVacation(),
+        myTeamLeave(),
+        applayLeave(),
+        leaveRequsets(),
+        applayVacation(),
+        vacationRequest(),
+        myAttenduce(),
+        holidayList(),
+      ],
+    );
+  }
+
+  /// employee
+  Widget applayLeave() {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () async {
+        context.pushNamed('ApplyLeavePage', queryParameters: {
+          'leaveModel':
+              serializeParam(_model.dashBoardModel?.toMap(), ParamType.JSON)
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1.svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getText(
+                  '4or8y847' /* Apply Leave */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget leaveRequsets() {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () async {
+        context.pushNamed('LeaveRequestPage');
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1_(1).svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getText(
+                  '0oi3twtc' /* Leave Request */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget applayVacation() {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () async {
+        //HolidayListPage
+        context.pushNamed('ApplyVacationPage', queryParameters: {
+          'leaveModel':
+              serializeParam(_model.dashBoardModel?.toMap(), ParamType.JSON)
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1_(2).svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getText(
+                  'ol7i67li' /* Apply Vacation */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget vacationRequest() {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () async {
+        context.pushNamed('VacationRequestPage');
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1_(3).svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getText(
+                  '2phlxskw' /* Vacation Request */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget myAttenduce() {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () async {
+        context.pushNamed('MyAttendancePage');
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1_(4).svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getText(
+                  '5m50xncd' /* My Attendance */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget holidayList() {
+    return InkWell(
+      onTap: () {
+        context.pushNamed('HolidayListPage');
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1_(5).svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getText(
+                  'kotydpsu' /* Holiday List */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // team lead
+  Widget myTeam() {
+    return InkWell(
+      onTap: () {
+        context.pushNamed('MyTeamListPageWidget');//MyTeamVacationPageWidget
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1 (7).svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context)
+                    .getVariableText(enText: 'My Team', arText: 'فريقي'),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget myTeamVacation() {
+    return InkWell(
+      onTap: () {
+        context.pushNamed('MyTeamVacationPageWidget');
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1_(3).svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getVariableText(
+                    enText: 'My Team Vacation', arText: 'اجازات فريقي'),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget myTeamLeave() {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9.0),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).colorDEDEDE,
+            width: 1.0,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/Layer_1_(1).svg',
+                width: 37.0,
+                height: 37.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getVariableText(
+                    enText: 'My Team Leave', arText: 'مغادرات فريقي'),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: FlutterFlowTheme.of(context).color67676B,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
         ),
       ),
     );

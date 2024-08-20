@@ -12,14 +12,18 @@ export 'api_manager.dart' show ApiCallResponse;
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
 /// Start HrGroup Group Code
-
+//ahmad@completechaintech.com
+//password
 class HrGroupGroup {
   static String getBaseUrl({
     String? platform = '',
     String? buildNumber = '',
     String? token = '',
   }) =>
+      // 'https://hr.completechaintech.com' ;
       'https://hrdev.completechaintech.com';
+
+  //
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Platform': '[platform]',
@@ -39,8 +43,16 @@ class HrGroupGroup {
   static VacationListApiCall vacationListApiCall = VacationListApiCall();
   static CreateLeaveApiCall createLeaveApiCall = CreateLeaveApiCall();
   static CreateVacationApiCall createVacationApiCall = CreateVacationApiCall();
-  static MonthAttendanceApiCall monthAttendanceApiCall = MonthAttendanceApiCall();
-
+  static MonthAttendanceApiCall monthAttendanceApiCall =
+      MonthAttendanceApiCall();
+  static MyTeamMembersApiCall myTeamMembersApiCall = MyTeamMembersApiCall();
+  static MyTeamMembersVacationBulkApiCall myTeamMembersVacationBulkApiCall =
+      MyTeamMembersVacationBulkApiCall();
+  static UpcomingHolidayApiCall upcomingHolidayApiCall =
+      UpcomingHolidayApiCall();
+  static UpdateDetailsStateApiCall updateDetailsStateApiCall =
+      UpdateDetailsStateApiCall();
+  static ChangeTeamApiCall changeTeamApiCall = ChangeTeamApiCall();
 
   static final interceptors = [
     ChainInterceptor(),
@@ -121,7 +133,6 @@ class VacationTypeApiCall {
   }
 }
 
- 
 class MonthAttendanceApiCall {
   Future<ApiCallResponse> call({
     required BuildContext context,
@@ -146,6 +157,81 @@ class MonthAttendanceApiCall {
             'Build-Number': '$buildNumber',
             'Authorization': 'Bearer $token',
             'Accept': 'application/json',
+          }.addUserHeaders(),
+          params: const {},
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
+class MyTeamMembersApiCall {
+  Future<ApiCallResponse> call(
+      {required BuildContext context,
+      String? platform = '',
+      String? buildNumber = '',
+      String? token = '',
+      int? page}) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'MonthAttendanceApiCall',
+          apiUrl: '$baseUrl/api/myTeamMembers',
+          callType: ApiCallType.GET,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': ''.platformSpecific,
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+            'page': '$page',
+          }.addUserHeaders(),
+          params: const {},
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
+class MyTeamMembersVacationBulkApiCall {
+  Future<ApiCallResponse> call(
+      {required BuildContext context,
+      String? platform = '',
+      String? buildNumber = '',
+      String? token = '',
+      String? date}) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'MonthAttendanceApiCall',
+          apiUrl: '$baseUrl/api/employee/vacationBulk/team/$date',
+          callType: ApiCallType.GET,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': ''.platformSpecific,
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json'
           }.addUserHeaders(),
           params: const {},
           returnBody: true,
@@ -197,6 +283,89 @@ class LeaveListApiCall {
         context);
   }
 }
+
+class UpcomingHolidayApiCall {
+  Future<ApiCallResponse> call({
+    required BuildContext context,
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'DashboardApiCall',
+          apiUrl: '$baseUrl/api/upcomingHolidays',
+          callType: ApiCallType.GET,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': ''.platformSpecific,
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          }.addUserHeaders(),
+          params: const {},
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
+class UpdateDetailsStateApiCall {
+  Future<ApiCallResponse> call({
+    required BuildContext context,
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+    String? id = '',
+    String? status = '',
+    String? action = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+//     final ffApiRequestBody = '''
+// {
+//   "action": "$action"
+// }''';
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'DashboardApiCall',
+          apiUrl: '$baseUrl/api/employee/vacationBulk/$id',
+          callType: ApiCallType.PUT,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': ''.platformSpecific,
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          }.addUserHeaders(),
+          params: {"action": '$action'},
+          returnBody: true,
+          // body: ffApiRequestBody,
+          encodeBodyUtf8: true,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
 class VacationListApiCall {
   Future<ApiCallResponse> call({
     required BuildContext context,
@@ -268,6 +437,53 @@ class LoginApiCallCall {
           headers: {
             'Content-Type': 'application/json',
             'Platform': '$platform',
+            'Build-Number': '$buildNumber',
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          }.addUserHeaders(),
+          params: const {},
+          body: ffApiRequestBody,
+          bodyType: BodyType.JSON,
+          returnBody: true,
+          encodeBodyUtf8: false,
+          decodeUtf8: false,
+          cache: false,
+          isStreamingApi: false,
+          alwaysAllowBody: false,
+        ),
+        HrGroupGroup.interceptors,
+        context);
+  }
+}
+
+class ChangeTeamApiCall {
+  Future<ApiCallResponse> call({
+    required BuildContext context,
+    String? team,
+    String? role,
+    String? platform = '',
+    String? buildNumber = '',
+    String? token = '',
+  }) async {
+    final baseUrl = HrGroupGroup.getBaseUrl(
+      platform: platform,
+      buildNumber: buildNumber,
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "team": "$team",
+  "role": "$role"
+}''';
+    return FFApiInterceptor.makeApiCall(
+        ApiCallOptions(
+          callName: 'ChangeTeamApiCall',
+          apiUrl: '$baseUrl/api/changeTeam',
+          callType: ApiCallType.POST,
+          headers: {
+            'Content-Type': 'application/json',
+            'Platform': ''.platformSpecific,
             'Build-Number': '$buildNumber',
             'Authorization': 'Bearer $token',
             'Accept': 'application/json',

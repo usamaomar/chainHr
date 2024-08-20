@@ -167,6 +167,17 @@ class DataStruct extends FFFirebaseStruct {
 
   bool hasVacationType() => _vacationType != null;
 
+
+  // @override
+  // bool operator ==(Object other) =>
+  //     identical(this, other) ||
+  //         other is DataStruct &&
+  //             runtimeType == other.runtimeType &&
+  //             employeeId == other.employeeId;
+  //
+  // @override
+  // int get hashCode => employeeId.hashCode;
+
   static DataStruct fromMap(Map<String, dynamic> data) => DataStruct(
         id: castToType<int>(data['id']),
         employeeId: castToType<int>(data['employee_id']),
@@ -179,7 +190,7 @@ class DataStruct extends FFFirebaseStruct {
         createdAt: data['created_at'] as String?,
         updatedAt: data['updated_at'] as String?,
         vacationTypeName: data['vacation_type_name'] as String?,
-        // attachmentFull: data['attachment_full'] as String?,
+        attachmentFull: data['attachment_full'] as String?,
         vacations: getStructList(
           data['vacations'],
           VacationsStruct.fromMap,

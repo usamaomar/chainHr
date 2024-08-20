@@ -16,6 +16,7 @@ class VacationRequestPageModel
   // Model for StatusComponent component.
   ApiCallResponse? leaveListApiCall;
   bool? isLoading = false;
+  DateTime? currentDate;
 
   List<DataStruct> listOfLocalCategory = [];
   void addToListOfLocalCategory(DataStruct item) =>

@@ -4,12 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../pages/apply_leave_page/apply_leave_page_widget.dart';
 import '../../pages/apply_vacation_page/apply_vacation_page_widget.dart';
+import '../../pages/holiday_list_page/holiday_list_page_widget.dart';
 import '../../pages/home_page/home_page_widget.dart';
 import '../../pages/leave_request_page/leave_request_page_widget.dart';
 import '../../pages/my_profile_page/my_profile_page_widget.dart';
 import '../../pages/notifications_page/notifications_page_widget.dart';
+import '../../pages/role_page/role_page_widget.dart';
 import '../../pages/select_page/select_page_widget.dart';
 import '../../pages/select_vacation_page/select_vacation_page_widget.dart';
+import '../../pages/team_lead/my_team_acation_page/my_team_vacation_page_widget.dart';
+import '../../pages/team_lead/my_team_list_page/my_team_list_page_widget.dart';
+import '../../pages/team_lead/select_my_team_list_page/select_my_team_list_page_widget.dart';
+import '../../pages/team_lead/select_status_list_page/select_status_list_page_widget.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 
@@ -113,6 +119,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : const HomePageWidget(),
         ),
         FFRoute(
+          name: 'SelectMyTeamListPageWidget',
+          path: '/selectMyTeamListPageWidget',
+          builder: (context, params) => const SelectMyTeamListPageWidget(),
+        ),
+        FFRoute(
           name: 'MyProfilePage',
           path: '/myProfile',
           builder: (context, params) => params.isEmpty
@@ -120,11 +131,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : const MyProfilePageWidget(),
         ),
         FFRoute(
+          name: 'SelectStatusListPageWidget',
+          path: '/selectStatusListPageWidget',
+          builder: (context, params) =>  const SelectStatusListPageWidget(),
+        ),
+        FFRoute(
+          name: 'MyTeamVacationPageWidget',
+          path: '/myTeamVacationPageWidget',
+          builder: (context, params) => const MyTeamVacationPageWidget(),
+        ),
+        FFRoute(
           name: 'NotificationsPage',
           path: '/notificationsPage',
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'NotificationsPage')
               : const NotificationsPageWidget(),
+        ),
+        FFRoute(
+          name: 'RolePageWidget',
+          path: '/RolePageWidget',
+          builder: (context, params) => const RolePageWidget(),
+        ),
+        FFRoute(
+          name: 'MyTeamListPageWidget',
+          path: '/myTeamListPageWidget',
+          builder: (context, params) => const MyTeamListPageWidget(),
         ),
         FFRoute(
           name: 'ApplyLeavePage',
@@ -144,6 +175,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'LeaveRequestPage',
           path: '/leaveRequestPage',
           builder: (context, params) => const LeaveRequestPageWidget(),
+        ),
+        FFRoute(
+          name: 'HolidayListPage',
+          path: '/holidayListPage',
+          builder: (context, params) => const HolidayListPageWidget(),
         ),
         FFRoute(
           name: 'SelectPageWidget',

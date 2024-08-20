@@ -16,6 +16,8 @@ class LeaveRequestPageModel extends FlutterFlowModel<LeaveRequestPageWidget> {
   ApiCallResponse? leaveListApiCall;
   bool? isLoading = false;
 
+  DateTime? currentDate;
+
   List<LeaveModelStruct> listOfLocalCategory = [];
   void addToListOfLocalCategory(LeaveModelStruct item) =>
       listOfLocalCategory.add(item);

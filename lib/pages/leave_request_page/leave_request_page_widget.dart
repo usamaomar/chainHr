@@ -31,24 +31,33 @@ class _LeaveRequestPageWidgetState extends State<LeaveRequestPageWidget> {
       setState(() {
         _model.isLoading = true;
       });
-      _model.leaveListApiCall = await HrGroupGroup.leaveListApiCall.call(
-          context: context,
-          date: dateTimeFormat('dd-MM-yyyy', DateTime.now(), locale: 'en'));
-      if ((_model.leaveListApiCall?.succeeded ?? true)) {
-        _model.listOfLocalCategory = getStructList(
-              getJsonField(
-                (_model.leaveListApiCall?.jsonBody ?? ''),
-                r'''$''',
-              ),
-              LeaveModelStruct.fromMap,
-            ) ??
-            [];
-        setState(() {});
-        setState(() {
-          _model.isLoading = false;
-        });
-      }
+      setState(() {
+        _model.currentDate = DateTime.now();
+      });
+      callApi();
     });
+  }
+
+   callApi() async{
+     setState(() {
+       _model.isLoading = true;
+     });
+    _model.leaveListApiCall = await HrGroupGroup.leaveListApiCall.call(
+        context: context,
+        date: dateTimeFormat('dd-MM-yyyy', _model.currentDate, locale: 'en'));
+    if ((_model.leaveListApiCall?.succeeded ?? true)) {
+      _model.listOfLocalCategory = getStructList(
+        getJsonField(
+          (_model.leaveListApiCall?.jsonBody ?? ''),
+          r'''$''',
+        ),
+        LeaveModelStruct.fromMap,
+      ) ??
+          [];
+      setState(() {
+        _model.isLoading = false;
+      });
+    }
   }
 
   @override
@@ -84,8 +93,75 @@ class _LeaveRequestPageWidgetState extends State<LeaveRequestPageWidget> {
           child: Stack(
             children: [
               Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    0.0, 18.0, 0.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        setState(() {
+                          _model.currentDate = DateTime(
+                            _model.currentDate?.year ?? 2024,
+                            (_model.currentDate?.month ?? 1) - 1,
+                            (_model.currentDate?.day ?? 1),
+                          );
+                        });
+                        await callApi();
+                      },
+                      child: Icon(
+                        Icons.arrow_left,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 27.0,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            31.0, 0.0, 31.0, 0.0),
+                        child: Text(
+                          dateTimeFormat('MMMM yyyy',
+                              _model.currentDate ?? DateTime.now(),
+                              locale: FFAppState().getSelectedLanguge),
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                            fontFamily: 'Inter',
+                            color: FlutterFlowTheme.of(context)
+                                .color4E88F4,
+                            fontSize: 20.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        setState(() {
+                          _model.currentDate = DateTime(
+                            _model.currentDate?.year ?? 2024,
+                            (_model.currentDate?.month ?? 1) + 1,
+                            (_model.currentDate?.day ?? 1),
+                          );
+                        });
+                        await callApi();
+                      },
+                      child: Icon(
+                        Icons.arrow_right,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 27.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 45.0, 0.0, 0.0),
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: _model.listOfLocalCategory.length,
@@ -264,6 +340,31 @@ class _LeaveRequestPageWidgetState extends State<LeaveRequestPageWidget> {
                       );
                     },
                   )),
+              Visibility(
+                visible: _model.listOfLocalCategory.isEmpty == true && _model.isLoading == false,
+                child: Center(
+                  child: Text(
+                    FFLocalizations.of(context)
+                        .getVariableText(
+                      enText:
+                      'No data is found !',
+                      arText:
+                      'لم يتم العثور على اي بيانات !',
+                    ),
+                    style:
+                    FlutterFlowTheme.of(context)
+                        .bodyMedium
+                        .override(
+                      fontFamily: 'Inter',
+                      color:
+                      FlutterFlowTheme.of(
+                          context)
+                          .color908888,
+                      letterSpacing: 0.0,
+                    ),
+                  ),
+                ),
+              ),
               Visibility(
                 visible: _model.isLoading == true,
                 child: Center(

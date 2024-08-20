@@ -41,7 +41,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
       if (kDebugMode) {
-        _model.textController1.text = "nancy@complete-chain.com";
+        _model.textController1.text = "ahmad@completechaintech.com";
+        // _model.textController1.text = "nancy@complete-chain.com";
         _model.textController2.text = "password";
       }
     }));
@@ -303,7 +304,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     platform: Platform.isAndroid ? 'Android' : 'Ios',
                                     fcm: 'ssss',
                                   );
-
                                   if ((_model.apiResult5ki?.succeeded ??
                                       true)) {
                                     FFAppState().UserModelState =

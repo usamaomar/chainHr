@@ -351,6 +351,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'End Date',
       'ar': 'تاريخ النهاية',
     },
+    '19aidsdsde4l3': {
+      'en': 'Date',
+      'ar': 'التاريخ',
+    },
     'wbq1rhac': {
       'en': 'Apply',
       'ar': 'تنفيذ',
@@ -365,6 +369,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'hfvag6cz': {
       'en': 'Leave Request',
       'ar': 'طلب مغادرة',
+    },
+    'hfvag6ccdcz': {
+      'en': 'Holiday List',
+      'ar': 'لائحة العطل',
     },
     '1uyycrn8': {
       'en': '31',

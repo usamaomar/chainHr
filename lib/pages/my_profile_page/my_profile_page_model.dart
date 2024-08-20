@@ -6,6 +6,16 @@ class MyProfilePageModel extends FlutterFlowModel<MyProfilePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  String? image;
+  String? name;
+  String? email;
+
+  FFUploadedFile uploadedLocalFile =
+  FFUploadedFile(bytes: Uint8List.fromList([]));
+  bool isDataUploading = false;
+
+
+
 
   @override
   void initState(BuildContext context) {}

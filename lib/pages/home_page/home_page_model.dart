@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  Local state fields for this page.
 
-  bool isBunchedIn = false;
+  bool isBunchedIn = true;
 
   DashboardModelStruct? dashBoardModel;
   void updateDashBoardModelStruct(Function(DashboardModelStruct) updateFn) {

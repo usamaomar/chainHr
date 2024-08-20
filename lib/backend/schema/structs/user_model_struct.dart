@@ -21,6 +21,7 @@ class UserModelStruct extends FFFirebaseStruct {
     String? designation,
     String? team,
     String? role,
+    String? userType,
     List<HasStruct>? has,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _id = id,
@@ -36,11 +37,14 @@ class UserModelStruct extends FFFirebaseStruct {
         _team = team,
         _role = role,
         _has = has,
+        _userType = userType,
         super(firestoreUtilData);
 
   // "id" field.
   int? _id;
+
   int get id => _id ?? 0;
+
   set id(int? val) => _id = val;
 
   void incrementId(int amount) => id = id + amount;
@@ -49,21 +53,36 @@ class UserModelStruct extends FFFirebaseStruct {
 
   // "name" field.
   String? _name;
+
   String get name => _name ?? '';
+
   set name(String? val) => _name = val;
 
   bool hasName() => _name != null;
 
+  // "name" field.
+  String? _userType;
+
+  String get userType => _userType ?? '';
+
+  set userType(String? val) => _userType = val;
+
+  bool hasUserType() => _userType != null;
+
   // "email" field.
   String? _email;
+
   String get email => _email ?? '';
+
   set email(String? val) => _email = val;
 
   bool hasEmail() => _email != null;
 
   // "current_team_id" field.
   int? _currentTeamId;
+
   int get currentTeamId => _currentTeamId ?? 0;
+
   set currentTeamId(int? val) => _currentTeamId = val;
 
   void incrementCurrentTeamId(int amount) =>
@@ -73,63 +92,81 @@ class UserModelStruct extends FFFirebaseStruct {
 
   // "profile_photo_path" field.
   String? _profilePhotoPath;
+
   String get profilePhotoPath => _profilePhotoPath ?? '';
+
   set profilePhotoPath(String? val) => _profilePhotoPath = val;
 
   bool hasProfilePhotoPath() => _profilePhotoPath != null;
 
   // "created_at" field.
   String? _createdAt;
+
   String get createdAt => _createdAt ?? '';
+
   set createdAt(String? val) => _createdAt = val;
 
   bool hasCreatedAt() => _createdAt != null;
 
   // "hiring_date" field.
   String? _hiringDate;
+
   String get hiringDate => _hiringDate ?? '';
+
   set hiringDate(String? val) => _hiringDate = val;
 
   bool hasHiringDate() => _hiringDate != null;
 
   // "updated_at" field.
   String? _updatedAt;
+
   String get updatedAt => _updatedAt ?? '';
+
   set updatedAt(String? val) => _updatedAt = val;
 
   bool hasUpdatedAt() => _updatedAt != null;
 
   // "token" field.
   String? _token;
+
   String get token => _token ?? '';
+
   set token(String? val) => _token = val;
 
   bool hasToken() => _token != null;
 
   // "designation" field.
   String? _designation;
+
   String get designation => _designation ?? '';
+
   set designation(String? val) => _designation = val;
 
   bool hasDesignation() => _designation != null;
 
   // "team" field.
   String? _team;
+
   String get team => _team ?? '';
+
   set team(String? val) => _team = val;
 
   bool hasTeam() => _team != null;
 
   // "role" field.
   String? _role;
+
   String get role => _role ?? '';
+
   set role(String? val) => _role = val;
 
   bool hasRole() => _role != null;
 
   // "has" field.
   List<HasStruct>? _has;
-  List<HasStruct> get has => _has ?? const [];
+
+  List<HasStruct> get has => _has ??   [];
+
   set has(List<HasStruct>? val) => _has = val;
 
   void updateHas(Function(List<HasStruct>) updateFn) {
@@ -151,6 +188,11 @@ class UserModelStruct extends FFFirebaseStruct {
         designation: data['designation'] as String?,
         team: data['team'] as String?,
         role: data['role'] as String?,
+        userType: (data["team"] == HRtYPE && data["role"] == admin)
+            ? HRtYPE
+            : ((data["team"] == employee && data["role"] == admin)
+                ? teamLeader
+                : employee),
         has: getStructList(
           data['has'],
           HasStruct.fromMap,
@@ -164,6 +206,7 @@ class UserModelStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'id': _id,
         'name': _name,
+        'userType': _userType,
         'email': _email,
         'current_team_id': _currentTeamId,
         'profile_photo_path': _profilePhotoPath,
@@ -185,6 +228,10 @@ class UserModelStruct extends FFFirebaseStruct {
         ),
         'name': serializeParam(
           _name,
+          ParamType.String,
+        ),
+        'userType': serializeParam(
+          _userType,
           ParamType.String,
         ),
         'email': serializeParam(
@@ -271,6 +318,11 @@ class UserModelStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        userType: deserializeParam(
+          data['userType'],
+          ParamType.String,
+          false,
+        ),
         updatedAt: deserializeParam(
           data['updated_at'],
           ParamType.String,
@@ -321,6 +373,7 @@ class UserModelStruct extends FFFirebaseStruct {
         updatedAt == other.updatedAt &&
         token == other.token &&
         designation == other.designation &&
+        userType == other.userType &&
         team == other.team &&
         role == other.role &&
         listEquality.equals(has, other.has);
@@ -335,6 +388,7 @@ class UserModelStruct extends FFFirebaseStruct {
         profilePhotoPath,
         createdAt,
         hiringDate,
+        userType,
         updatedAt,
         token,
         designation,
@@ -357,6 +411,7 @@ UserModelStruct createUserModelStruct({
   String? designation,
   String? team,
   String? role,
+  String? userType,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -371,6 +426,7 @@ UserModelStruct createUserModelStruct({
       createdAt: createdAt,
       hiringDate: hiringDate,
       updatedAt: updatedAt,
+      userType: userType,
       token: token,
       designation: designation,
       team: team,

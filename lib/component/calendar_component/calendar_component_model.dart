@@ -7,6 +7,7 @@ class CalendarComponentModel extends FlutterFlowModel<CalendarComponentWidget> {
 
    DateTime? selectedDate;
    DateTime? minimumDate;
+   bool? onChanged = false;
 
 
   @override

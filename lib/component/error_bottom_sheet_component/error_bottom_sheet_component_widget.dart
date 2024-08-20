@@ -79,17 +79,17 @@ class _ErrorBottomSheetComponentWidgetState
           Flexible(
             child: Padding(
               padding:
-                  const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
+              const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
               child: Text(
                 widget.error ?? '',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
-                      color: FlutterFlowTheme.of(context).color000000,
-                      fontSize: 14.0,
-                      letterSpacing: 0.14,
-                      fontWeight: FontWeight.w500,
-                      lineHeight: 1.8,
-                    ),
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).color000000,
+                  fontSize: 14.0,
+                  letterSpacing: 0.14,
+                  fontWeight: FontWeight.w500,
+                  lineHeight: 1.8,
+                ),
               ),
             ),
           ),

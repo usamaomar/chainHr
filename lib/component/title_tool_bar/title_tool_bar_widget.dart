@@ -7,11 +7,13 @@ class TitleToolBarWidget extends StatelessWidget {
 
   final String? title;
   final String? userImage;
+  final bool? isBackAllowed;
+  final bool? isImageAllowed;
   final void Function()? actionBack;
 
 
   const TitleToolBarWidget(
-      {super.key, this.title, this.actionBack, this.userImage});
+      {super.key, this.title, this.actionBack, this.userImage, this.isBackAllowed, this.isImageAllowed});
 
 
   @override
@@ -25,18 +27,21 @@ class TitleToolBarWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: actionBack,
-            child: Icon(
-              Icons.keyboard_backspace_rounded,
-              color: FlutterFlowTheme
-                  .of(context)
-                  .color000000,
-              size: 24.0,
+          Visibility(
+            visible:  (isBackAllowed ?? true),
+            child: InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: actionBack,
+              child: Icon(
+                Icons.keyboard_backspace_rounded,
+                color: FlutterFlowTheme
+                    .of(context)
+                    .color000000,
+                size: 24.0,
+              ),
             ),
           ),
           Padding(
@@ -56,21 +61,24 @@ class TitleToolBarWidget extends StatelessWidget {
               ),
             ),
           ),
-          Flexible(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(100.0),
-                  child: Image.network(
-                    userImage ?? '',
-                    width: 24.0,
-                    height: 24.0,
-                    fit: BoxFit.contain,
+          Visibility(
+            visible: (isImageAllowed ?? true),
+            child: Flexible(
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100.0),
+                    child: Image.network(
+                      userImage ?? '',
+                      width: 24.0,
+                      height: 24.0,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

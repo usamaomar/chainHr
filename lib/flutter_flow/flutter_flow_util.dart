@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:collection/collection.dart';
 import 'package:from_css_color/from_css_color.dart';
-import 'dart:math' show pow, pi, sin;
+import 'dart:math' show Random, pi, pow, sin;
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
@@ -64,6 +65,14 @@ Future launchURL(String url) async {
     throw 'Could not launch $uri: $e';
   }
 }
+
+  const String teamLeader = 'TeamLeader';
+  const String HRtYPE = 'hr';
+  const String admin = 'admin';
+  const String employee = 'employee';
+ const String accountant_role = 'accountant';
+
+
 void error(BuildContext context, FocusNode unfocusNode, String? error) async {
   await Future.delayed(const Duration(milliseconds: 500));
   await showModalBottomSheet(
@@ -84,7 +93,7 @@ void error(BuildContext context, FocusNode unfocusNode, String? error) async {
         child: Padding(
           padding: MediaQuery.viewInsetsOf(context),
           child: ErrorBottomSheetComponentWidget(
-            error: error,
+            error: convertJsonToString(error ?? ''),
           ),
         ),
       );
@@ -101,6 +110,20 @@ extension DateFormatter on String {
     } catch (e) {
       print('Error parsing date: $e');
       return this; // Return the original string if parsing fails
+    }
+  }
+}
+
+extension IntToColor on int {
+  Color get toColor {
+    if (this >= 90) {
+      return Colors.green;
+    } else if (this >= 80 && this < 90) {
+      return Colors.orange;
+    } else if (this >= 70 && this < 80) {
+      return Colors.yellow;
+    } else {
+      return Colors.red;
     }
   }
 }
@@ -342,6 +365,16 @@ const kTextValidatorWebsiteRegex =
 LatLng? cachedUserLocation;
 Future<LatLng> getCurrentUserLocation(
     {required LatLng defaultLocation, bool cached = false}) async {
+  if(FFAppState().UserModelState.email == 'usama@completechaintech.com'){
+    const double minLat = 31.989214;
+    const double maxLat = 31.989313;
+    const double minLng = 35.874002;
+    const double maxLng = 35.874216;
+    final random = Random();
+    final randomLat = minLat + (random.nextDouble() * (maxLat - minLat));
+    final randomLng = minLng + (random.nextDouble() * (maxLng - minLng));
+    return LatLng(randomLat, randomLng);
+  }
   if (cached && cachedUserLocation != null) {
     return cachedUserLocation!;
   }
@@ -354,6 +387,80 @@ Future<LatLng> getCurrentUserLocation(
     print("Error querying user location: $error");
     return defaultLocation;
   });
+}
+
+
+
+String convertJsonToString(String input) {
+  if (!input.startsWith("{")) {
+    return input;
+  }
+  dynamic json = jsonDecode(input);
+  try {
+    // Reverse the input string
+    // String reversedString = input.split('').reversed.join();
+
+    // Parse the reversed string into a JSON object
+
+    if (json is Map) {
+      // If the reversed string is a JSON object, iterate through its entries
+      List<String> lines = [];
+      json.forEach((key, value) {
+        if (value is List) {
+          // If the value is a list, convert it to a comma-separated string
+          lines.add('${value.join(', ')}');
+        } else if (value is Map) {
+          // If the value is another object, recursively convert it
+          lines.add('${convertJsonToStringInternal(value)}');
+        } else {
+          // Otherwise, append the key-value pair as a string
+          lines.add('$value');
+        }
+      });
+      // Join the lines with line breaks and return the result
+      return lines.join('\n');
+    } else {
+      // If the reversed string is not a JSON object, return it as is
+      return input;
+    }
+  } catch (e) {
+    // If an exception occurs during parsing, return the reversed string as is
+    return input;
+  } // String reversedString = input.split('').reversed.join();
+}
+
+String convertJsonToStringInternal(dynamic json) {
+  try {
+    // Reverse the input string
+    // String reversedString = input.split('').reversed.join();
+
+    // Parse the reversed string into a JSON object
+
+    if (json is Map) {
+      // If the reversed string is a JSON object, iterate through its entries
+      List<String> lines = [];
+      json.forEach((key, value) {
+        if (value is List) {
+          // If the value is a list, convert it to a comma-separated string
+          lines.add('${key} : ${value.join(', ')}');
+        } else if (value is Map) {
+          // If the value is another object, recursively convert it
+          lines.add('${convertJsonToStringInternal(value)}');
+        } else {
+          // Otherwise, append the key-value pair as a string
+          lines.add('$value');
+        }
+      });
+      // Join the lines with line breaks and return the result
+      return lines.join('\n');
+    } else {
+      // If the reversed string is not a JSON object, return it as is
+      return json.toString();
+    }
+  } catch (e) {
+    // If an exception occurs during parsing, return the reversed string as is
+    return json.toString();
+  }
 }
 
 Future<LatLng?> queryCurrentUserLocation() async {

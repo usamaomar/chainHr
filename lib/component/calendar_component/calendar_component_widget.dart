@@ -41,12 +41,13 @@ class _CalendarComponentWidgetState extends State<CalendarComponentWidget> {
       setState(() {
         _model.selectedDate = widget.selectedDate;
         _model.minimumDate = widget.minimumDate;
-        if(_model.minimumDate?.isAfter(_model.selectedDate ?? DateTime.now()) == true){
+        if (_model.minimumDate
+                ?.isAfter(_model.selectedDate ?? DateTime.now()) ==
+            true) {
           _model.selectedDate = _model.minimumDate?.addOneMinute();
         }
       });
     });
-
   }
 
   @override
@@ -68,14 +69,12 @@ class _CalendarComponentWidgetState extends State<CalendarComponentWidget> {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(0.0),
-              child:  Icon(
-                Icons.calendar_month_rounded,
-                color:  FlutterFlowTheme.of(context)
-                    .color4E88F4,
-                size: 24.0,
-              )
-            ),
+                borderRadius: BorderRadius.circular(0.0),
+                child: Icon(
+                  Icons.calendar_month_rounded,
+                  color: FlutterFlowTheme.of(context).color4E88F4,
+                  size: 24.0,
+                )),
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
@@ -97,10 +96,13 @@ class _CalendarComponentWidgetState extends State<CalendarComponentWidget> {
             height: 200,
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
-              minimumDate:  _model.minimumDate ,
-              initialDateTime: _model.selectedDate ,
+              minimumDate: _model.minimumDate,
+              initialDateTime: _model.selectedDate,
               onDateTimeChanged: (DateTime newDateTime) {
-                setState(() { _model.selectedDate = newDateTime;});
+                setState(() {
+                  _model.onChanged = true;
+                  _model.selectedDate = newDateTime;
+                });
               },
             ),
           ),
@@ -112,10 +114,16 @@ class _CalendarComponentWidgetState extends State<CalendarComponentWidget> {
                 Expanded(
                   child: FFButtonWidget(
                     onPressed: () async {
-                      widget.onDateTimeChanged?.call(_model.selectedDate ?? DateTime.now());
-                      Navigator.pop(context);
+                      if (_model.onChanged == true) {
+                        widget.onDateTimeChanged
+                            ?.call(_model.selectedDate ?? DateTime.now());
+                        Navigator.pop(context);
+                      } else {
+                        widget.onDateTimeChanged?.call(DateTime.now());
+                        Navigator.pop(context);
+                      }
                     },
-                    text:  FFLocalizations.of(context).getVariableText(
+                    text: FFLocalizations.of(context).getVariableText(
                       enText: 'SELECT',
                       arText: 'اختر',
                     ),
