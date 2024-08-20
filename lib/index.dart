@@ -14,3 +14,5 @@ export '/vacation_request_page/vacation_request_page_widget.dart'
     show VacationRequestPageWidget;
 export '/my_attendance_page/my_attendance_page_widget.dart'
     show MyAttendancePageWidget;
+export '/my_attendance_details_page/my_attendance_details_page_widget.dart'
+    show MyAttendanceDetailsPageWidget;

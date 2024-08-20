@@ -441,6 +441,101 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'الاشعارات',
     },
   },
+  // MyAttendanceDetailsPage
+  {
+    'pclqj1pu': {
+      'en': 'My Attendance',
+      'ar': '',
+    },
+    '1v8l0qiw': {
+      'en': 'Punch In ',
+      'ar': '',
+    },
+    'gzpmivzv': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    'cyxyu9i9': {
+      'en': '50%',
+      'ar': '',
+    },
+    'r1dfxrq1': {
+      'en': 'Punch In ',
+      'ar': '',
+    },
+    'w8k1scl9': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    'g6ovswwa': {
+      'en': 'Punch In ',
+      'ar': '',
+    },
+    '8pclt4b0': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    '76wp9e7r': {
+      'en': 'Punch In ',
+      'ar': '',
+    },
+    'ro61ljxh': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    'qbmjatyw': {
+      'en': 'Punch In ',
+      'ar': '',
+    },
+    'x4apcm9n': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    'k72q0lic': {
+      'en': 'Today\'s Time Settings',
+      'ar': 'إعدادات الوقت اليوم',
+    },
+    'oxuivs6k': {
+      'en': 'Working Hours',
+      'ar': 'ساعات العمل',
+    },
+    'vnfhe8zs': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    'pq3la8l4': {
+      'en': 'Break',
+      'ar': 'استراحة',
+    },
+    '8prpjj5m': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    '3ej65680': {
+      'en': 'Flexible Time',
+      'ar': 'الوقت المرن',
+    },
+    '7sf0acuv': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    'w7ekezcd': {
+      'en': 'Extra Break',
+      'ar': 'استراحة اضافية',
+    },
+    's2ddit02': {
+      'en': '07:59 AM',
+      'ar': '',
+    },
+    'haqlvph7': {
+      'en': 'View Today\'s Punches',
+      'ar': 'عرض لكمات اليوم',
+    },
+    'dfqb2alw': {
+      'en': 'Notifications',
+      'ar': '',
+    },
+  },
   // FreeDialog
   {
     '90x2dekr': {

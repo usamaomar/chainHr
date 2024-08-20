@@ -133,6 +133,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'MyAttendancePage',
           path: '/myAttendancePage',
           builder: (context, params) => const MyAttendancePageWidget(),
+        ),
+        FFRoute(
+          name: 'MyAttendanceDetailsPage',
+          path: '/myAttendanceDetailsPage',
+          builder: (context, params) => const MyAttendanceDetailsPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
